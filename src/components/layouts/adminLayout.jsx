@@ -23,9 +23,9 @@ const Layout = ({ children }) => {
             paddingLeft: "3px",
           }}
         >
-          <SideNav />
+          <SideNav/>
         </Grid>
-        <Grid item sm={10} md={10} lg={10} xl={10} marginTop={2}>
+        <Grid item sm={10} md={10} lg={10} xl={10} marginTop={2} marginBottom={3}>
           <main>{children}</main>
         </Grid>
       </Grid>
