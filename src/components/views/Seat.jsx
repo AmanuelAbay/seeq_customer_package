@@ -16,7 +16,7 @@ export default function Header({ seatNumber, status }) {
       <EventSeatIcon
         sx={{
           fontWeight: "bold",
-          fontSize: 50,
+          fontSize: 40,
           color: status === "vip" ? "#00FF00" : "#FF5722",
           border: isSelected ? "4px solid #393E46" : "1px solid black",
           borderRadius: 25,
