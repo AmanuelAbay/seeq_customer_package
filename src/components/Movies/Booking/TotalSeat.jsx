@@ -68,7 +68,7 @@ export default function SeatSelection({ Book }) {
         sx={{
           width: "full",
           alignItems: "center",
-          marginTop: 10,
+          marginTop: 3,
         }}
       >
         <Stack alignItems="center">
@@ -99,7 +99,7 @@ export default function SeatSelection({ Book }) {
             }}
             onClick={Book}
           >
-            Book
+            Check Out
           </Button>
         </Link>
       </Box>
