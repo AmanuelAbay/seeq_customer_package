@@ -9,12 +9,11 @@ import {
   Grid,
 } from "@mui/material";
 import Seat from "../../views/Seat";
-import Link from 'next/link'
+import Link from "next/link";
 export default function SeatSelection({ Book }) {
   const vip = [
     6, 16, 26, 36, 7, 8, 9, 10, 17, 18, 19, 20, 27, 28, 29, 30, 37, 38, 39, 40,
   ];
-
 
   return (
     <Box

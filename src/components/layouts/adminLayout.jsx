@@ -15,7 +15,7 @@ const Layout = ({ children }) => {
           lg={2}
           xl={2}
           sx={{
-            backgroundColor:"#80808050",
+            backgroundColor: "#80808050",
             height: "full",
             alignItems: "center",
             textAlign: "center",
@@ -23,9 +23,17 @@ const Layout = ({ children }) => {
             paddingLeft: "3px",
           }}
         >
-          <SideNav/>
+          <SideNav />
         </Grid>
-        <Grid item sm={10} md={10} lg={10} xl={10} marginTop={2} marginBottom={3}>
+        <Grid
+          item
+          sm={10}
+          md={10}
+          lg={10}
+          xl={10}
+          marginTop={2}
+          marginBottom={3}
+        >
           <main>{children}</main>
         </Grid>
       </Grid>
