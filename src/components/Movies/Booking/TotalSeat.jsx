@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import Seat from "../../views/Seat";
 import Link from "next/link";
-export default function SeatSelection({ Book }) {
+export default function SeatSelection({ Checkout }) {
   const vip = [
     6, 16, 26, 36, 7, 8, 9, 10, 17, 18, 19, 20, 27, 28, 29, 30, 37, 38, 39, 40,
   ];
@@ -88,19 +88,17 @@ export default function SeatSelection({ Book }) {
         </Stack>
       </Stack>
       <Box width="100%" marginTop={5}>
-        <Link href="/movie_description/ticket_preview">
-          <Button
-            variant="contained"
-            sx={{
-              width: "60%",
-              backgroundColor: "bar.main",
-              "&:hover": { backgroundColor: "bar.focusC" },
-            }}
-            onClick={Book}
-          >
-            Check Out
-          </Button>
-        </Link>
+        <Button
+          variant="contained"
+          sx={{
+            width: "60%",
+            backgroundColor: "bar.main",
+            "&:hover": { backgroundColor: "bar.focusC" },
+          }}
+          onClick={Checkout}
+        >
+          Check Out
+        </Button>
       </Box>
     </Box>
   );
