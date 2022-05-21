@@ -16,6 +16,7 @@ import React, { useState } from "react";
 import TermsAndPolicy from "./TermsAndPolicy";
 import SeatSelection from "./SeatSelection";
 import TotalSeat from "./TotalSeat";
+import TicketPreview from "./TicketPreview";
 import CancelIcon from "@mui/icons-material/Cancel";
 
 export default function AddMovies({ popup }) {
@@ -23,6 +24,7 @@ export default function AddMovies({ popup }) {
   const [terms, setTerms] = useState(true);
   const [numberOfSeat, setNumberOfSeat] = useState(false);
   const [seatSelection, setSeatSelection] = useState(false);
+  const [ticketPreview, setTicketPreview] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,6 +38,11 @@ export default function AddMovies({ popup }) {
   const handleTotalSeat = () => {
     setNumberOfSeat(false);
     setSeatSelection(true);
+  };
+
+  const handleTicketPreview = () => {
+    setSeatSelection(false);
+    setTicketPreview(true);
   };
 
   const handleBook = () => {
@@ -324,6 +331,11 @@ export default function AddMovies({ popup }) {
                 Select Seats
               </Typography>
             )}
+            {ticketPreview && (
+              <Typography variant="text" component="p">
+                Ticket Preview
+              </Typography>
+            )}
           </DialogTitle>
           <DialogContent sx={{ width: "100%" }}>
             <DialogContentText
@@ -337,7 +349,8 @@ export default function AddMovies({ popup }) {
                 />
               )}
               {numberOfSeat && <SeatSelection Agree={handleTotalSeat} />}
-              {seatSelection && <TotalSeat Book={handleBook} />}
+              {seatSelection && <TotalSeat Checkout={handleTicketPreview} />}
+              {ticketPreview && <TicketPreview Book={handleBook} />}
             </DialogContentText>
           </DialogContent>
         </Stack>

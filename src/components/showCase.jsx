@@ -9,7 +9,6 @@ const Showcase = () => {
       style={{
         // backgroundImage: `url(${teddy})`,
         // backgroundSize: "cover",
-        backgroundColor: "yellow",
         height: "60vh",
         width: "full",
       }}
