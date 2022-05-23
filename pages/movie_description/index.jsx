@@ -17,7 +17,7 @@ import {
 // import useStyles from "./styles";
 import useStyles from "../../styles/styles";
 import Event from "../../src/components/Cards/eventCard";
-import Carousel from "../../src/components/views/carousel";
+// import Carousel from "../../src/components/views/carousel";
 import Movie from "../../src/components/Cards/movieCard";
 import { Divider } from "@mui/material";
 import { useState, useEffect } from "react";
@@ -145,7 +145,7 @@ const Description = () => {
                       lineHeight: 1.7,
                     }}
                   >
-                    With Spider-Man's identity now revealed, Peter asks Doctor
+                    With Spider-Mans identity now revealed, Peter asks Doctor
                     Strange for help. When a spell goes wrong, dangerous foes
                     from other worlds start to appear, forcing Peter to discover
                     what it truly means to be Spider-Man.
@@ -209,7 +209,7 @@ const Description = () => {
               </Stack>
             </Grid>
             <Grid item md={10} sx={{ mt: 3, pt: 5 }}>
-              <Carousel />
+              {/* <Carousel /> */}
             </Grid>
           </Grid>
 

@@ -181,7 +181,7 @@ const Home = () => {
                           onKeyDown={handleListKeyDown}
                         >
                           {menus.map((menu) => (
-                            <MenuItem onClick={handleClose}>{menu}</MenuItem>
+                            <MenuItem key={menu} onClick={handleClose}>{menu}</MenuItem>
                           ))}
                         </MenuList>
                       </ClickAwayListener>

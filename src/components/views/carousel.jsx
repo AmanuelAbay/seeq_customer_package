@@ -24,7 +24,7 @@ const MyCarousel = () => {
         <Carousel breakPoints={breakPoints}>
           {items.map((item) => (
             // <Item key={item}>{item}</Item>
-            <Button variant="outlined" sx={{ color: "#000", fontSize: 20 }}>
+            <Button key={item} variant="outlined" sx={{ color: "#000", fontSize: 20 }}>
               {item}
             </Button>
           ))}
