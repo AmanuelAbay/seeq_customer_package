@@ -19,7 +19,7 @@ import {
 // import useStyles from "./styles";
 import useStyles from "../../styles/styles";
 import Event from "../../src/components/Cards/eventCard";
-import Carousel from "../../src/components/views/carousel";
+// import Carousel from "../../src/components/views/carousel";
 import Movie from "../../src/components/Cards/movieCard";
 import { Divider } from "@mui/material";
 import { useState, useEffect } from "react";
@@ -217,8 +217,13 @@ const Description = () => {
                 />
               </Stack>
             </Grid>
+
             <Grid item md={10} xs={10} sx={{ mt: 3, pt: 5 }}>
               <Carousel />
+
+            <Grid item md={10} sx={{ mt: 3, pt: 5 }}>
+              {/* <Carousel /> */}
+
             </Grid>
           </Grid>
 

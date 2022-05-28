@@ -205,11 +205,15 @@ const Home = () => {
                           onKeyDown={handleListKeyDown}
                         >
                           {menus.map((menu) => (
+
                             <MenuItem key={menu} onClick={handleClose}>
                               <Typography sx={{ fontFamily: "Poppins" }}>
                                 {menu}
                               </Typography>
                             </MenuItem>
+
+                            <MenuItem key={menu} onClick={handleClose}>{menu}</MenuItem>
+
                           ))}
                         </MenuList>
                       </ClickAwayListener>
