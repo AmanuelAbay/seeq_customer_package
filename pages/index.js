@@ -8,6 +8,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Image from "next/image";
+import Avatar from "@mui/material/Avatar";
+import MenuIcon from "@mui/icons-material/Menu";
+
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 // asset imports
 import image from "../src/assets/seeqApp.png";
@@ -50,6 +55,14 @@ const Home = () => {
   const classes = useStyles();
   const API_URL = "http://www.omdbapi.com?apikey=c15ef40d";
   const menus = ["Action", "Tragedy", "Romance", "Comedy", "Erotic"];
+  const menuItems = [
+    "All",
+    "Art",
+    "Concert",
+    "Exhibition",
+    "Health and Sports",
+    "Entertainment",
+  ];
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("spiderman");
   const [num, setNum] = useState(4);
@@ -57,6 +70,9 @@ const Home = () => {
   const sliced = movies?.slice(0, num);
   const sliced2 = cards?.slice(0, num2);
   const title = "spider man";
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const searchMovies = async (title) => {
     const response = await fetch(`${API_URL}&s=${title}`);
@@ -114,42 +130,50 @@ const Home = () => {
         <Showcase />
         <Container maxWidth={false}>
           <Grid container spacing={4} justifyContent="space-between">
-            <Grid item>
+            <Grid item md={5} xs={5} sm={5}>
               <Typography
                 sx={{
-                  ml: 5,
+                  ml: isMobile ? 1 : 5,
                   mt: 3,
                   mb: 2,
-                  fontFamily: "poppins",
-                  fontSize: 50,
+                  fontFamily: "Poppins",
+                  fontSize: isMobile ? 18 : 50,
                 }}
               >
                 Movies in Town
               </Typography>
             </Grid>
-            <Grid item>
+            <Grid
+              item
+              md={4}
+              xs={7}
+              sm={6}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "end",
+              }}
+            >
               <Button
                 variant="text"
                 disabled="true"
                 style={{
-                  color: "#000000",
-                  fontFamily: "poppins1",
-                  fontSize: 18,
+                  color: "#303030",
+                  fontSize: isMobile ? 15 : 18,
                 }}
-                sx={{ mr: 2, mt: 4 }}
+                sx={{ mr: isMobile ? 1 : 2, mt: 4, fontFamily: "Poppins" }}
               >
-                Genre :
+                Genre:
               </Button>
               <Button
                 ref={anchorRef}
                 variant="outlined"
                 style={{
-                  color: "#000000",
-                  fontFamily: "poppins1",
-                  fontSize: 18,
+                  color: "#303030",
+                  fontSize: isMobile ? 15 : 18,
                 }}
                 endIcon={<KeyboardArrowDownIcon />}
-                sx={{ mr: 7, mt: 4 }}
+                sx={{ mr: 7, mt: 4, fontFamily: "Poppins" }}
                 onClick={handleToggle}
               >
                 All
@@ -181,7 +205,15 @@ const Home = () => {
                           onKeyDown={handleListKeyDown}
                         >
                           {menus.map((menu) => (
+
+                            <MenuItem key={menu} onClick={handleClose}>
+                              <Typography sx={{ fontFamily: "Poppins" }}>
+                                {menu}
+                              </Typography>
+                            </MenuItem>
+
                             <MenuItem key={menu} onClick={handleClose}>{menu}</MenuItem>
+
                           ))}
                         </MenuList>
                       </ClickAwayListener>
@@ -196,12 +228,11 @@ const Home = () => {
         <Container maxWidth={false}>
           <Button
             style={{
-              color: "#000000",
+              color: "#303030",
               fontSize: 18,
-              fontFamily: "poppins1",
               textTransform: "none",
             }}
-            sx={{ m: 3 }}
+            sx={{ m: 3, fontFamily: "Poppins" }}
             component="button"
             variant="text"
             onClick={() => {
@@ -212,12 +243,11 @@ const Home = () => {
           </Button>
           <Button
             style={{
-              color: "#000000",
+              color: "#303030",
               fontSize: 18,
-              fontFamily: "poppins1",
               textTransform: "none",
             }}
-            sx={{ m: 3 }}
+            sx={{ m: 3, fontFamily: "Poppins" }}
             component="button"
             variant="body2"
             onClick={() => {
@@ -228,12 +258,11 @@ const Home = () => {
           </Button>
           <Button
             style={{
-              color: "#000000",
+              color: "#303030",
               fontSize: 18,
-              fontFamily: "poppins1",
               textTransform: "none",
             }}
-            sx={{ m: 3 }}
+            sx={{ m: 3, fontFamily: "Poppins" }}
             component="button"
             variant="body2"
             onClick={() => {
@@ -258,7 +287,7 @@ const Home = () => {
                 {sliced.map((movie, index) => (
                   <Grid item xs={12} sm={6} md={3} key={index}>
                     <Link href="/movie_description">
-                      <Movie movie={movie} />
+                      <Movie movie={movie} sx={{ m: 4 }} />
                     </Link>
                   </Grid>
                 ))}
@@ -288,7 +317,7 @@ const Home = () => {
                   style={{
                     color: "#d63302",
                     fontSize: 18,
-                    fontFamily: "poppins1",
+                    fontFamily: "Poppins",
                   }}
                   onClick={() => loadMore()}
                 >
@@ -300,127 +329,190 @@ const Home = () => {
           )}
         </Container>
         <Box sx={{ mb: 5 }}></Box>
-        <Container maxWidth={false}>
-          <Grid container>
-            <Grid item>
+        <Container maxWidth={false} sx={{ mb: isMobile && 3 }}>
+          <Grid
+            container
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Grid item xs={!isMobile && 12}>
               <Typography
-                sx={{ ml: 5, mt: 3, fontFamily: "poppins", fontSize: 50 }}
+                sx={{
+                  ml: 5,
+                  mt: !isMobile && 3,
+                  fontFamily: "Poppins",
+                  fontSize: isMobile ? 18 : 50,
+                }}
               >
                 Events in Town
               </Typography>
             </Grid>
-          </Grid>
-        </Container>
-        <Container maxWidth={false}>
-          <Grid container alignItems="center" spacing={1}>
-            <Grid item>
-              <Button
-                style={{
-                  color: "#000000",
-                  fontSize: 18,
-                  fontFamily: "poppins1",
-                  textTransform: "none",
-                }}
-                sx={{ m: 3 }}
-                component="button"
-                variant="text"
-                onClick={() => {
-                  console.info("I'm a button.");
-                }}
-              >
-                All
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                style={{
-                  color: "#000000",
-                  fontSize: 18,
-                  fontFamily: "poppins1",
-                  textTransform: "none",
-                }}
-                sx={{ m: 3 }}
-                component="button"
-                variant="text"
-                onClick={() => {
-                  console.info("I'm a button.");
-                }}
-              >
-                Health and Wellbeing
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                style={{
-                  color: "#000000",
-                  fontSize: 18,
-                  fontFamily: "poppins1",
-                  textTransform: "none",
-                }}
-                sx={{ m: 3 }}
-                component="button"
-                variant="body2"
-                onClick={() => {
-                  console.info("I'm a button.");
-                }}
-              >
-                Sport and Fitness
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                style={{
-                  color: "#000000",
-                  fontSize: 18,
-                  fontFamily: "poppins1",
-                  textTransform: "none",
-                }}
-                sx={{ m: 3 }}
-                component="button"
-                variant="body2"
-                onClick={() => {
-                  console.info("I'm a button.");
-                }}
-              >
-                Concert
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                style={{
-                  color: "#000000",
-                  fontSize: 18,
-                  fontFamily: "poppins1",
-                  textTransform: "none",
-                }}
-                sx={{ m: 3 }}
-                component="button"
-                variant="body2"
-                onClick={() => {
-                  console.info("I'm a button.");
-                }}
-              >
-                Exhibition
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                style={{
-                  color: "#000000",
-                  fontSize: 18,
-                  fontFamily: "poppins1",
-                  textTransform: "none",
-                }}
-                sx={{ m: 3 }}
-                component="button"
-                variant="body2"
-                onClick={() => {
-                  console.info("I'm a button.");
-                }}
-              >
-                Entertainment
-              </Button>
-            </Grid>
+            {isMobile ? (
+              <Grid item>
+                <Button
+                  ref={anchorRef}
+                  variant="text"
+                  style={{ color: "#303030", fontSize: "large" }}
+                  sx={{ mr: 1 }}
+                  onClick={handleToggle}
+                >
+                  <MenuIcon />
+                </Button>
+                <Popper
+                  open={open}
+                  anchorEl={anchorRef.current}
+                  role={undefined}
+                  placement="bottom-start"
+                  transition
+                  disablePortal
+                >
+                  {({ TransitionProps, placement }) => (
+                    <Grow
+                      {...TransitionProps}
+                      style={{
+                        transformOrigin:
+                          placement === "bottom-start"
+                            ? "left top"
+                            : "left bottom",
+                      }}
+                    >
+                      <Paper>
+                        <ClickAwayListener onClickAway={handleClose}>
+                          <MenuList
+                            autoFocusItem={open}
+                            id="composition-menu"
+                            aria-labelledby="composition-button"
+                            onKeyDown={handleListKeyDown}
+                          >
+                            {menuItems.map((menu) => (
+                              <MenuItem key={menu} onClick={handleClose}>
+                                <Typography sx={{ fontSize: 20 }}>
+                                  {menu.menuTitle}
+                                </Typography>
+                              </MenuItem>
+                            ))}
+                          </MenuList>
+                        </ClickAwayListener>
+                      </Paper>
+                    </Grow>
+                  )}
+                </Popper>
+              </Grid>
+            ) : (
+              <Container maxWidth={false}>
+                <Grid container alignItems="center" spacing={1}>
+                  <Grid item>
+                    <Button
+                      style={{
+                        color: "#303030",
+                        fontSize: 18,
+                        fontFamily: "poppins",
+                        textTransform: "none",
+                      }}
+                      sx={{ m: 3 }}
+                      component="button"
+                      variant="text"
+                      onClick={() => {
+                        console.info("I'm a button.");
+                      }}
+                    >
+                      All
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      style={{
+                        color: "#303030",
+                        fontSize: 18,
+                        fontFamily: "poppins",
+                        textTransform: "none",
+                      }}
+                      sx={{ m: 3 }}
+                      component="button"
+                      variant="text"
+                      onClick={() => {
+                        console.info("I'm a button.");
+                      }}
+                    >
+                      Health and Wellbeing
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      style={{
+                        color: "#303030",
+                        fontSize: 18,
+                        fontFamily: "poppins",
+                        textTransform: "none",
+                      }}
+                      sx={{ m: 3 }}
+                      component="button"
+                      variant="body2"
+                      onClick={() => {
+                        console.info("I'm a button.");
+                      }}
+                    >
+                      Sport and Fitness
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      style={{
+                        color: "#303030",
+                        fontSize: 18,
+                        fontFamily: "poppins",
+                        textTransform: "none",
+                      }}
+                      sx={{ m: 3 }}
+                      component="button"
+                      variant="body2"
+                      onClick={() => {
+                        console.info("I'm a button.");
+                      }}
+                    >
+                      Concert
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      style={{
+                        color: "#303030",
+                        fontSize: 18,
+                        fontFamily: "poppins",
+                        textTransform: "none",
+                      }}
+                      sx={{ m: 3 }}
+                      component="button"
+                      variant="body2"
+                      onClick={() => {
+                        console.info("I'm a button.");
+                      }}
+                    >
+                      Exhibition
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      style={{
+                        color: "#303030",
+                        fontSize: 18,
+                        fontFamily: "poppins",
+                        textTransform: "none",
+                      }}
+                      sx={{ m: 3 }}
+                      component="button"
+                      variant="body2"
+                      onClick={() => {
+                        console.info("I'm a button.");
+                      }}
+                    >
+                      Entertainment
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Container>
+            )}
           </Grid>
         </Container>
         <Container
@@ -452,56 +544,114 @@ const Home = () => {
         <Typography
           variant="h2"
           align="center"
-          sx={{ flexGrow: 1, my: 7, fontFamily: "poppins1" }}
+          sx={{ flexGrow: 1, my: 7, fontFamily: "poppins" }}
         >
           HOW IT WORKS - IN JUST 4 STEPS
         </Typography>
         <Container maxWidth="xl">
           <Grid container>
             <Grid item md={6} align="center">
-              <Image
-                src={image}
-                alt="Seeq Mobile App"
-                height={600}
-                width={300}
-                // layout="responsive"
-                sx={{ objectFit: "contain" }}
-              />
+              <Box sx={{ pl: isMobile ? 23 : 0 }}>
+                <Image
+                  src={image}
+                  alt="Seeq Mobile App"
+                  height={600}
+                  width={300}
+                  // layout="responsive"
+                  sx={{ objectFit: "contain" }}
+                />
+              </Box>
             </Grid>
             <Grid item md={6}>
-              <Stack direction="row" alignItems="center" gap={3}>
-                <Image src={image3} alt={1} height={80} width={80} />
-                <Typography sx={{ fontSize: 24, mb: 3, mt: 1 }}>
+              <Stack direction="row" alignItems="center" gap={5}>
+                {/* <Image src={image3} alt={1} height={80} width={80} /> */}
+                <Avatar
+                  style={{ border: "2px solid #d63302" }}
+                  sx={{
+                    width: 56,
+                    height: 56,
+                    mb: 2,
+                    bgcolor: "white",
+                    color: "#d63302",
+                  }}
+                >
+                  1
+                </Avatar>
+                <Typography
+                  sx={{ fontSize: 24, mb: 3, mt: 1, fontFamily: "Poppins" }}
+                >
                   Signing up for free on Seeq Events gives you access to our
                   powerful event management and ticketing platform.
                 </Typography>
               </Stack>
-              <Stack direction="row" alignItems="center" gap={3}>
+              <Stack direction="row" alignItems="center" gap={5}>
                 <Box>
-                  <Image src={image4} alt={2} height={120} width={120} />
+                  {/* <Image src={image4} alt={2} height={120} width={120} /> */}
+                  <Avatar
+                    style={{ border: "2px solid #d63302" }}
+                    sx={{
+                      width: 56,
+                      height: 56,
+                      mb: 2,
+                      bgcolor: "white",
+                      color: "#d63302",
+                    }}
+                  >
+                    2
+                  </Avatar>
                 </Box>
-                <Typography sx={{ fontSize: 24, mb: 3 }}>
+                <Typography sx={{ fontSize: 24, mb: 3, fontFamily: "Poppins" }}>
                   Choose your event type , online or venue event, fill in the
                   details, set your ticket options, and publish! It is very
                   simple, but there are tons of ways to customize.
                 </Typography>
               </Stack>
-              <Stack direction="row" alignItems="center" gap={3}>
-                <Image src={image5} alt={3} height={85} width={85} />
-                <Typography sx={{ fontSize: 24, mb: 3 }}>
+              <Stack direction="row" alignItems="center" gap={5}>
+                {/* <Image src={image5} alt={3} height={85} width={85} /> */}
+                <Avatar
+                  style={{ border: "2px solid #d63302" }}
+                  sx={{
+                    width: 56,
+                    height: 56,
+                    mb: 2,
+                    bgcolor: "white",
+                    color: "#d63302",
+                  }}
+                >
+                  3
+                </Avatar>
+                <Typography sx={{ fontSize: 24, mb: 3, fontFamily: "Poppins" }}>
                   Signing up for free on Seeq Events gives you access to our
                   powerful event management and ticketing platform.
                 </Typography>
               </Stack>
-              <Stack direction="row" alignItems="center" gap={3}>
-                <Image src={image6} alt={4} height={120} width={120} />
-                <Typography sx={{ fontSize: 24, mb: 3 }}>
+              <Stack direction="row" alignItems="center" gap={5}>
+                {/* <Image src={image6} alt={4} height={120} width={120} /> */}
+                <Avatar
+                  style={{ border: "2px solid #d63302" }}
+                  sx={{
+                    width: 56,
+                    height: 56,
+                    mb: 2,
+                    bgcolor: "white",
+                    color: "#d63302",
+                    fontSize: 20,
+                  }}
+                >
+                  4
+                </Avatar>
+                <Typography sx={{ fontSize: 24, mb: 3, fontFamily: "Poppins" }}>
                   Choose your event type , online or venue event, fill in the
                   details, set your ticket options, and publish! It is very
                   simple, but there are tons of ways to customize.
                 </Typography>
               </Stack>
-              <Stack direction="row" alignItems="center" gap={4}>
+              <Stack
+                direction="row"
+                alignItems="center"
+                gap={4}
+                sx={{ pl: isMobile ? 5 : 0 }}
+              >
                 <Button>
                   <Image src={image7} alt="play store" />
                 </Button>
@@ -515,7 +665,7 @@ const Home = () => {
         <Typography
           variant="h2"
           align="center"
-          sx={{ flexGrow: 1, my: 8, fontFamily: "poppins1" }}
+          sx={{ flexGrow: 1, my: 8, fontFamily: "poppins" }}
         >
           Our Partners
         </Typography>

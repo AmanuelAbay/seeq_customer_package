@@ -63,7 +63,7 @@ export default function AddMovies({ popup }) {
           <Grid container alignItems="center">
             <Grid item md="4">
               <Typography
-                sx={{ fontSize: 25, fontFamily: "poppins1" }}
+                sx={{ fontSize: 25, fontFamily: "poppins" }}
                 align="center"
               >
                 Century
@@ -123,7 +123,7 @@ export default function AddMovies({ popup }) {
           <Grid container alignItems="center">
             <Grid item md="4">
               <Typography
-                sx={{ fontSize: 25, fontFamily: "poppins1" }}
+                sx={{ fontSize: 25, fontFamily: "poppins" }}
                 align="center"
               >
                 Gast
@@ -183,7 +183,7 @@ export default function AddMovies({ popup }) {
           <Grid container alignItems="center">
             <Grid item md="4">
               <Typography
-                sx={{ fontSize: 25, fontFamily: "poppins1" }}
+                sx={{ fontSize: 25, fontFamily: "poppins" }}
                 align="center"
               >
                 Edna Mall
@@ -243,7 +243,7 @@ export default function AddMovies({ popup }) {
           <Grid container alignItems="center">
             <Grid item md="4">
               <Typography
-                sx={{ fontSize: 25, fontFamily: "poppins1" }}
+                sx={{ fontSize: 25, fontFamily: "poppins" }}
                 align="center"
               >
                 Alem Cinema

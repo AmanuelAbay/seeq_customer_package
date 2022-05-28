@@ -1,6 +1,6 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
+import { Box, Divider, Stack } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
@@ -9,12 +9,16 @@ import SearchIcon from "@mui/icons-material/Search";
 import Paper from "@mui/material/Paper";
 import Link from "next/link";
 import InputBase from "@mui/material/InputBase";
-import { TextField, Typography, Grid } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import { Typography, Grid } from "@mui/material";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Grow from "@mui/material/Grow";
 import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
@@ -172,6 +176,25 @@ export default function MenuAppBar() {
       population_proper: "",
     },
   ];
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  console.log(isMobile);
+  console.log("heyyooo");
+
+  const menuItems = [
+    {
+      menuTitle: "Movies",
+      pageURL: "/",
+    },
+    {
+      menuTitle: "Events",
+      pageURL: "/contact",
+    },
+    {
+      menuTitle: "City",
+      pageURL: "/about",
+    },
+  ];
   const anchorRef = React.useRef(null);
 
   const handleToggle = () => {
@@ -210,142 +233,281 @@ export default function MenuAppBar() {
         <Toolbar>
           <Link href="/" style={{ textDecoration: "none" }}>
             <IconButton
-              size="large"
+              size={isMobile ? "large" : "small"}
               edge="start"
               aria-label="logo"
               sx={{ mr: 5, color: "white" }}
             >
               {/* <img src={seeqLogo} alt="seeq logo" /> */}
-              <Typography variant="h3">Seeq</Typography>
+              {isMobile ? (
+                <Typography variant="h6">Seeq</Typography>
+              ) : (
+                <Typography variant="h3">Seeq</Typography>
+              )}
             </IconButton>
           </Link>
           <Grid container justifyContent="space-between">
-            <Grid item md={4}>
-              <Paper>
-                <Grid
-                  container
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Grid item md={11}>
-                    <InputBase
-                      fullWidth={true}
-                      sx={{
-                        ml: 1,
-                        py: 1.5,
-                        px: 4,
-                        "& input::placeholder": {
-                          fontSize: 20,
-                          fontFamily: "poppins1",
-                        },
-                      }}
-                      placeholder="Search Movies or Events or anything you want"
-                      inputProps={{ "aria-label": "Search movies or events" }}
-                      // onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <IconButton
-                      type="submit"
-                      sx={{ py: "3px", pr: "7px" }}
-                      aria-label="search"
-                      // onClick={() => searchMovies(searchTerm)}
-                    >
-                      <SearchIcon fontSize="large" />
-                    </IconButton>
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="text"
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 18,
-                }}
-                sx={{
-                  mr: 3,
-                  color: "#FFFFFF",
-                  "&:hover": { color: "#fd7348" },
-                }}
-              >
-                Events
-              </Button>
-              <Button
-                variant="text"
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 18,
-                }}
-                sx={{
-                  mr: 3,
-                  color: "#FFFFFF",
-                  "&:hover": { color: "#fd7348" },
-                }}
-              >
-                Movies
-              </Button>
-              <Button
-                ref={anchorRef}
-                variant="text"
-                style={{ color: "#ffffff", fontSize: 18 }}
-                endIcon={<KeyboardArrowDownIcon />}
-                sx={{ mr: 7 }}
-                onClick={handleToggle}
-              >
-                City
-              </Button>
-              <Popper
-                open={open}
-                anchorEl={anchorRef.current}
-                role={undefined}
-                placement="bottom-start"
-                transition
-                disablePortal
-              >
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    style={{
-                      transformOrigin:
-                        placement === "bottom-start"
-                          ? "left top"
-                          : "left bottom",
-                    }}
+            <Grid item md={4} sm={8} xs={8} lg={4}>
+              {!isMobile && (
+                <Paper>
+                  <Grid
+                    container
+                    justifyContent="space-between"
+                    alignItems="center"
                   >
-                    <Paper>
-                      <ClickAwayListener onClickAway={handleClose}>
-                        <MenuList
-                          autoFocusItem={open}
-                          id="composition-menu"
-                          aria-labelledby="composition-button"
-                          onKeyDown={handleListKeyDown}
-                        >
-                          {menus.map((menu) => (
-                            <MenuItem onClick={handleClose}>
-                              {menu.city}
-                            </MenuItem>
-                          ))}
-                        </MenuList>
-                      </ClickAwayListener>
-                    </Paper>
-                  </Grow>
-                )}
-              </Popper>
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: "#FF702a",
-                  fontWeight: "bold",
-                  fontSize: 18,
-                  "&:hover": { backgroundColor: "#ff5119" },
-                  mr: 3,
-                }}
-              >
-                Sign Up
-              </Button>
+                    <Grid item md={11} sm={7} xs={7} lg={11}>
+                      <InputBase
+                        fullWidth={true}
+                        sx={{
+                          ml: 1,
+                          py: 1.5,
+                          "& input::placeholder": {
+                            fontSize: isMobile ? 15 : 20,
+                            fontFamily: "poppins",
+                          },
+                        }}
+                        placeholder="Search Movies or Events or anything you want"
+                        inputProps={{ "aria-label": "Search movies or events" }}
+                        // onChange={(e) => setSearchTerm(e.target.value)}
+                      />
+                    </Grid>
+                    <Grid item md={1} sm={1} xs={1} lg={1}>
+                      <IconButton
+                        type="submit"
+                        sx={{ py: "3px", pr: "7px" }}
+                        aria-label="search"
+                        // onClick={() => searchMovies(searchTerm)}
+                      >
+                        <SearchIcon
+                          fontSize={isMobile ? "small" : "large"}
+                          sx={{ mr: isMobile ? 1 : 3 }}
+                        />
+                      </IconButton>
+                    </Grid>
+                  </Grid>
+                </Paper>
+              )}
             </Grid>
+            {isMobile ? (
+              <>
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "#FF702a",
+                    fontWeight: "bold",
+                    fontSize: 15,
+                    "&:hover": { backgroundColor: "#ff5119" },
+                    mr: 1,
+                  }}
+                >
+                  Sign Up
+                </Button>
+                <Button
+                  ref={anchorRef}
+                  variant="text"
+                  style={{ color: "#ffffff", fontSize: 18 }}
+                  sx={{ mr: 1 }}
+                  onClick={handleToggle}
+                >
+                  <MenuIcon />
+                </Button>
+                <Popper
+                  open={open}
+                  anchorEl={anchorRef.current}
+                  role={undefined}
+                  placement="bottom-start"
+                  transition
+                  disablePortal
+                >
+                  {({ TransitionProps, placement }) => (
+                    <Grow
+                      {...TransitionProps}
+                      style={{
+                        transformOrigin:
+                          placement === "bottom-start"
+                            ? "left top"
+                            : "left bottom",
+                      }}
+                    >
+                      <Paper>
+                        <ClickAwayListener onClickAway={handleClose}>
+                          <MenuList
+                            autoFocusItem={open}
+                            id="composition-menu"
+                            aria-labelledby="composition-button"
+                            onKeyDown={handleListKeyDown}
+                          >
+                            {menuItems.map((menu) => (
+                              <MenuItem key={menu} onClick={handleClose}>
+                                <Typography sx={{ fontSize: 20 }}>
+                                  {menu.menuTitle}
+                                </Typography>
+                                <Divider
+                                  style={{ background: "black" }}
+                                  variant="middle"
+                                />
+                              </MenuItem>
+                            ))}
+                            {/* <Stack
+                              direction="row"
+                              sx={{ px: 2 }}
+                              display="flex"
+                              alignItems="center"
+                            >
+                              <TextField
+                                id="outlined-basic"
+                                label="Search Movies or Events"
+                                variant="outlined"
+                              />
+                              <Box>
+                                <Button
+                                  variant="text"
+                                  sx={{ color: "#bfbdbd" }}
+                                >
+                                  <SearchIcon fontSize="large" />
+                                </Button>
+                              </Box>
+                            </Stack> */}
+                            <Paper
+                              sx={{ mx: 1, px: 4, backgroundColor: "#fffff2" }}
+                            >
+                              <Grid
+                                container
+                                justifyContent="space-between"
+                                alignItems="center"
+                              >
+                                <Grid item md={10} sm={11} xs={11} lg={11}>
+                                  <InputBase
+                                    fullWidth={true}
+                                    sx={{
+                                      py: 1.5,
+                                      "& input::placeholder": {
+                                        fontSize: 15,
+                                        fontFamily: "poppins",
+                                      },
+                                    }}
+                                    placeholder="Search Movies or Events"
+                                    inputProps={{
+                                      "aria-label": "Search movies or events",
+                                    }}
+                                    // onChange={(e) => setSearchTerm(e.target.value)}
+                                  />
+                                </Grid>
+                                <Grid item md={2} sm={1} xs={2} lg={1}>
+                                  <IconButton
+                                    type="submit"
+                                    sx={{ py: "1px", pr: "7px" }}
+                                    aria-label="search"
+                                    // onClick={() => searchMovies(searchTerm)}
+                                  >
+                                    <SearchIcon
+                                      fontSize="medium"
+                                      sx={{ mr: 1 }}
+                                    />
+                                  </IconButton>
+                                </Grid>
+                              </Grid>
+                            </Paper>
+                          </MenuList>
+                        </ClickAwayListener>
+                      </Paper>
+                    </Grow>
+                  )}
+                </Popper>
+              </>
+            ) : (
+              <Grid item>
+                {/* <Button
+                  variant="text"
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 18,
+                  }}
+                  sx={{
+                    mr: 3,
+                    color: "#FFFFFF",
+                    "&:hover": { color: "#fd7348" },
+                  }}
+                >
+                  Events
+                </Button>
+                <Button
+                  variant="text"
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 18,
+                  }}
+                  sx={{
+                    mr: 3,
+                    color: "#FFFFFF",
+                    "&:hover": { color: "#fd7348" },
+                  }}
+                >
+                  Movies
+                </Button> */}
+                <Button
+                  ref={anchorRef}
+                  variant="text"
+                  style={{ color: "#ffffff", fontSize: 18 }}
+                  endIcon={<KeyboardArrowDownIcon />}
+                  sx={{ mr: 7 }}
+                  onClick={handleToggle}
+                >
+                  City
+                </Button>
+                <Popper
+                  open={open}
+                  anchorEl={anchorRef.current}
+                  role={undefined}
+                  placement="bottom-start"
+                  transition
+                  disablePortal
+                >
+                  {({ TransitionProps, placement }) => (
+                    <Grow
+                      {...TransitionProps}
+                      style={{
+                        transformOrigin:
+                          placement === "bottom-start"
+                            ? "left top"
+                            : "left bottom",
+                      }}
+                    >
+                      <Paper>
+                        <ClickAwayListener onClickAway={handleClose}>
+                          <MenuList
+                            autoFocusItem={open}
+                            id="composition-menu"
+                            aria-labelledby="composition-button"
+                            onKeyDown={handleListKeyDown}
+                          >
+                            {menus.map((menu) => (
+                              <MenuItem key={menu} onClick={handleClose}>
+                                <Typography sx={{ fontFamily: "Poppins" }}>
+                                  {menu.city}
+                                </Typography>
+                              </MenuItem>
+                            ))}
+                          </MenuList>
+                        </ClickAwayListener>
+                      </Paper>
+                    </Grow>
+                  )}
+                </Popper>
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "#FF702a",
+                    fontWeight: "bold",
+                    fontSize: 18,
+                    "&:hover": { backgroundColor: "#ff5119" },
+                    mr: 3,
+                  }}
+                >
+                  Sign Up
+                </Button>
+              </Grid>
+            )}
           </Grid>
         </Toolbar>
       </AppBar>

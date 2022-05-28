@@ -17,25 +17,29 @@ import {
 } from "@mui/material";
 import useStyles from "../../../styles/styles";
 import Link from "@mui/material/Link";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const Footer = () => {
   const classes = useStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <footer className={classes.footer}>
       <Container style={{ backgroundColor: "#393E46" }} maxWidth={false}>
         <Grid container spacing={4} justifyContent="space-evenly">
-          <Grid item>
+          <Grid item xs={12} sm={6} md={3}>
             <Typography
-              sx={{ fontFamily: "poppins1" }}
+              sx={{ fontFamily: "poppins" }}
               className={classes.footer3}
               variant="h3"
             >
               Seeq
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid item xs={12} sm={6} md={3}>
             <Typography
-              sx={{ mb: 2, fontFamily: "poppins1" }}
+              sx={{ mb: 2, fontFamily: "poppins" }}
               className={classes.footer3}
               variant="h4"
             >
@@ -61,9 +65,9 @@ const Footer = () => {
               </Typography>
             </Link>
           </Grid>
-          <Grid item>
+          <Grid item xs={12} sm={6} md={3}>
             <Typography
-              sx={{ mb: 2, fontFamily: "poppins1" }}
+              sx={{ mb: 2, fontFamily: "poppins" }}
               className={classes.footer3}
               variant="h4"
             >
@@ -85,9 +89,9 @@ const Footer = () => {
               </Typography>
             </Link>
           </Grid>
-          <Grid item>
+          <Grid item xs={12} sm={6} md={3}>
             <Typography
-              sx={{ mb: 2, fontFamily: "poppins1" }}
+              sx={{ mb: 2, fontFamily: "poppins" }}
               className={classes.footer3}
               variant="h4"
             >
@@ -112,7 +116,7 @@ const Footer = () => {
           <Grid item></Grid>
         </Grid>
         <Grid container justifyContent="space-between" sx={{ mt: 10 }}>
-          <Grid item sx={{ ml: 15 }}>
+          <Grid item sx={{ ml: isMobile ? 1 : 15 }}>
             <Link href={"#"} style={{ textDecoration: "none" }}>
               <Typography variant="h5" className={classes.footer2}>
                 @2022 Seeq
@@ -124,12 +128,12 @@ const Footer = () => {
               </Typography>
             </Link>
           </Grid>
-          <Grid item>
+          <Grid item xs={12} sm={6} md={3}>
             <Stack
               direction="row"
               display="flex"
               alignItems="center"
-              gap={2}
+              gap={1}
               sx={{ mr: 10, mb: 5 }}
             >
               <Button>

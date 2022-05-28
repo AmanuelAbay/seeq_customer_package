@@ -25,7 +25,9 @@
     "react-dom": "18.1.0",
     "react-elastic-carousel": "^0.11.5",
     "react-qr-code": "^2.0.7",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "styled-components": "^5.3.5",
+    "swiper": "^8.1.5"
   },
   "devDependencies": {
     "eslint": "8.15.0",

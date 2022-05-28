@@ -70,15 +70,15 @@ const Description = () => {
                 </Typography>
                 <Stack direction="row" alignItems="center" spacing={2}>
                   <FmdGoodOutlinedIcon />
-                  <Typography sx={{ fontSize: 24, fontFamily: "poppins1" }}>
+                  <Typography sx={{ fontSize: 24, fontFamily: "poppins" }}>
                     Venue events{" "}
                   </Typography>
                   <FiberManualRecordIcon fontSize="small" />
-                  <Typography sx={{ fontSize: 24, fontFamily: "poppins1" }}>
+                  <Typography sx={{ fontSize: 24, fontFamily: "poppins" }}>
                     Starts on monday 12:30
                   </Typography>
                   <FiberManualRecordIcon fontSize="small" />
-                  <Typography sx={{ fontSize: 24, fontFamily: "poppins1" }}>
+                  <Typography sx={{ fontSize: 24, fontFamily: "poppins" }}>
                     1H 15M
                   </Typography>
                 </Stack>
@@ -102,7 +102,7 @@ const Description = () => {
             spacing={8}
             justifyContent="space-between"
           >
-            <Grid item md="7">
+            <Grid item md={7} xs={12}>
               <Grid container sx={{ mb: 5, alignItems: "center", mt: 2 }}>
                 <Grid item md="3">
                   <img
@@ -142,7 +142,7 @@ const Description = () => {
                         <Typography
                           sx={{
                             color: "#e84302",
-                            fontFamily: "poppins1",
+                            fontFamily: "poppins",
                             fontSize: 20,
                           }}
                         >
@@ -162,7 +162,7 @@ const Description = () => {
                         <Typography
                           sx={{
                             color: "#e84302",
-                            fontFamily: "poppins1",
+                            fontFamily: "poppins",
                             fontSize: 20,
                           }}
                         >
@@ -178,7 +178,7 @@ const Description = () => {
                 About this Event
               </Typography>
               <Typography
-                sx={{ fontSize: 23, fontFamily: "poppins1", lineHeight: 1.7 }}
+                sx={{ fontSize: 23, fontFamily: "poppins", lineHeight: 1.7 }}
               >
                 Start your Sunday morning amongst nature at a nice slow pace,
                 restoring and rejuvenating the body and mind. Join Nicole
@@ -196,7 +196,7 @@ const Description = () => {
                 <MyMap sx={{ pl: 10 }} />
               </Stack>
             </Grid>
-            <Grid item md="4">
+            <Grid item md={4} xs={12}>
               <Paper sx={{ mt: 5, px: 3, py: 8 }} elevation={1}>
                 <Stack direction="column">
                   <Typography
@@ -230,7 +230,7 @@ const Description = () => {
                           </Typography>
                         </Box>
                         <Typography
-                          sx={{ fontSize: 20, fontFamily: "poppins1" }}
+                          sx={{ fontSize: 20, fontFamily: "poppins" }}
                         >
                           Days
                         </Typography>
@@ -260,7 +260,7 @@ const Description = () => {
                           </Typography>
                         </Box>
                         <Typography
-                          sx={{ fontSize: 20, fontFamily: "poppins1" }}
+                          sx={{ fontSize: 20, fontFamily: "poppins" }}
                         >
                           Hours
                         </Typography>
@@ -290,7 +290,7 @@ const Description = () => {
                           </Typography>
                         </Box>
                         <Typography
-                          sx={{ fontSize: 20, fontFamily: "poppins1" }}
+                          sx={{ fontSize: 20, fontFamily: "poppins" }}
                         >
                           Minutes
                         </Typography>
@@ -320,7 +320,7 @@ const Description = () => {
                           </Typography>
                         </Box>
                         <Typography
-                          sx={{ fontSize: 20, fontFamily: "poppins1" }}
+                          sx={{ fontSize: 20, fontFamily: "poppins" }}
                         >
                           Seconds
                         </Typography>
@@ -343,7 +343,7 @@ const Description = () => {
                     <Typography
                       sx={{
                         fontSize: 22,
-                        fontFamily: "poppins1",
+                        fontFamily: "poppins",
                         color: "#3DB9B8",
                       }}
                     >
@@ -351,17 +351,17 @@ const Description = () => {
                     </Typography>
                   </Stack>
                   <Typography
-                    sx={{ fontSize: 20, fontFamily: "poppins1", mb: 1.5 }}
+                    sx={{ fontSize: 20, fontFamily: "poppins", mb: 1.5 }}
                   >
                     Tumbling waters holiday park
                   </Typography>
                   <Typography
-                    sx={{ fontSize: 20, fontFamily: "poppins1", mb: 1.5 }}
+                    sx={{ fontSize: 20, fontFamily: "poppins", mb: 1.5 }}
                   >
                     Peninsula rd, Berry Springs, Northern
                   </Typography>
                   <Typography
-                    sx={{ fontSize: 20, fontFamily: "poppins1", mb: 3 }}
+                    sx={{ fontSize: 20, fontFamily: "poppins", mb: 3 }}
                   >
                     Territory 838, Australia
                   </Typography>
@@ -438,7 +438,7 @@ const Description = () => {
                 // sx={{ mr: 3 }}
               >
                 <Stack direction="row" alignItems="center" spacing={1}>
-                  <Typography sx={{ fontSize: 24, fontFamily: "poppins1" }}>
+                  <Typography sx={{ fontSize: 24, fontFamily: "poppins" }}>
                     More Events
                   </Typography>
                 </Stack>
@@ -454,7 +454,7 @@ const Description = () => {
                 sx={{ mr: 3 }}
               >
                 <Stack direction="row" alignItems="center" spacing={1}>
-                  <Typography sx={{ fontSize: 24, fontFamily: "poppins1" }}>
+                  <Typography sx={{ fontSize: 24, fontFamily: "poppins" }}>
                     Browse all
                   </Typography>
                   <ArrowDownwardOutlinedIcon />
