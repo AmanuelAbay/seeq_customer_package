@@ -1,9 +1,13 @@
 import React from "react";
 import { MenuList, Box, Typography, Stack, Avatar } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+// import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+// import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
+import ConfirmationNumberOutlinedIcon from "@mui/icons-material/ConfirmationNumberOutlined";
+// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+// import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -11,14 +15,37 @@ export default function SideNav() {
   const router = useRouter();
   return (
     <>
-      <Box sx={{alignItems: "center", width: "100%", textAlign: "center"}}>
+      <Box
+        sx={{
+          alignItems: "center",
+          width: "100%",
+          textAlign: "center",
+        }}
+      >
         <Avatar
           src="https://randomuser.me/api/portraits/men/31.jpg"
           alt="S"
-          sx={{ width: 90, height: 90, mx:'auto', marginBottom:2 }}
+          sx={{ width: 110, height: 110, mx: "auto", my: 2 }}
         />
-        <Typography variant="text" component="div" sx={{fontWeight: 'bold', marginBottom:0.5}}>Andarg Worku</Typography>
-        <Typography variant="text" component="div" sx={{marginBottom:1}}>andymickes@gmail.com</Typography>
+        <Typography
+          variant="text"
+          component="div"
+          sx={{
+            fontWeight: "medium",
+            fontSize: 25,
+            fontFamily: "poppins",
+            marginBottom: 0.5,
+          }}
+        >
+          Andarg Worku
+        </Typography>
+        <Typography
+          variant="text"
+          component="div"
+          sx={{ marginBottom: 1, fontSize: 20, fontFamily: "poppins" }}
+        >
+          andymickes@gmail.com
+        </Typography>
       </Box>
       <MenuList
         sx={{
@@ -32,6 +59,7 @@ export default function SideNav() {
           <Stack
             backgroundColor={router.pathname === "/profile" ? "white" : ""}
             direction="row"
+            spacing={2.5}
             sx={{
               width: "100%",
               alignItems: "center",
@@ -47,19 +75,20 @@ export default function SideNav() {
               my: "2px",
             }}
           >
-            <Box
+            {/* <Box
               sx={{
                 py: 0.3,
                 px: 1.3,
               }}
-            >
-              <AccountCircleIcon />
-            </Box>
+            > */}
+            <AccountCircleOutlinedIcon fontSize="large" />
+            {/* </Box> */}
             <Typography
               variant="text"
               component="p"
               sx={{
-                fontWeight: "medium",
+                fontSize: 24,
+                fontFamily: "poppins",
                 textTransform: "capitalize",
                 py: 0.5,
                 textAlign: "center",
@@ -76,6 +105,7 @@ export default function SideNav() {
               router.pathname === "/profile/events" ? "white" : ""
             }
             direction="row"
+            spacing={2.5}
             sx={{
               width: "100%",
               alignItems: "center",
@@ -90,19 +120,20 @@ export default function SideNav() {
               my: "2px",
             }}
           >
-            <Box
+            {/* <Box
               sx={{
                 py: 0.3,
                 px: 1.3,
               }}
-            >
-              <CalendarMonthIcon />
-            </Box>
+            > */}
+            <CalendarMonthOutlinedIcon fontSize="large" />
+            {/* </Box> */}
             <Typography
               variant="text"
               component="p"
               sx={{
-                fontWeight: "medium",
+                fontSize: 24,
+                fontFamily: "poppins",
                 textTransform: "capitalize",
                 py: 0.5,
                 textAlign: "center",
@@ -119,6 +150,7 @@ export default function SideNav() {
               router.pathname === "/profile/movie_tickets" ? "white" : ""
             }
             direction="row"
+            spacing={2.5}
             sx={{
               width: "100%",
               alignItems: "center",
@@ -135,21 +167,22 @@ export default function SideNav() {
               my: "2px",
             }}
           >
-            <Box
+            {/* <Box
               sx={{
                 py: 0.3,
                 px: 1.3,
               }}
-            >
-              <ConfirmationNumberIcon />
-            </Box>
+            > */}
+            <ConfirmationNumberOutlinedIcon fontSize="large" />
+            {/* </Box> */}
             <Typography
               variant="text"
               component="p"
               sx={{
-                fontWeight: "medium",
+                fontSize: 24,
+                fontFamily: "poppins",
                 textTransform: "capitalize",
-                py: 0.5,
+                py: 0.3,
                 textAlign: "center",
                 alignItems: "center",
               }}

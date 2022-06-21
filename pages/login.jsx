@@ -6,41 +6,69 @@ import {
   Stack,
   InputBase,
   Divider,
+  IconButton,
   FormGroup,
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
 import React from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import login from "../src/assets/login.jpg";
 import GoogleIcon from "@mui/icons-material/Google";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import Layout from "../src/components/layouts/authLayout";
 import Link from "next/link";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
 export default function LogIn() {
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
+
   return (
     <Layout>
-      <Box maxWidth="xl" sx={{ marginTop: 8, height: "full" }}>
+      <Box sx={{ marginTop: 8, height: "full", pl: "5%", pr: "7%" }}>
         <Grid container spacing={2}>
           <Grid
             item
-            md={7}
-            borderRight="1px solid #FF5722"
+            md={6}
+            borderRight="1px solid #FF702a"
             height="auto"
-            paddingRignt={1}
+            paddingRight={1}
+            display="flex"
+            justifyContent="center"
+            sx={{ mt: "10%" }}
           >
-            <img
-              style={{ width: "100%", height: "100vh", objectFit: "cover" }}
-              src="https://picsum.photos/seed/picsum/200"
+            {/* <img
+              style={{ width: "50%", height: "50vh", objectFit: "cover" }}
+              src={login}
               alt="Cover"
-            />
+            /> */}
+            <Box>
+              <Image
+                src={login}
+                alt="Picture of event illustration"
+                style={{ objectFit: "cover", height: 0 }}
+                // layout="responsive"
+              />
+            </Box>
           </Grid>
-          <Grid item md={5} alignItems="center" sx={{ marginTop: 4 }}>
+          <Grid
+            item
+            md={5}
+            alignItems="center"
+            justifyContent="center"
+            sx={{ mt: 17 }}
+          >
             <Stack sx={{ width: "100%", alignItems: "center" }}>
               <Typography
                 textTransform="uppercase"
                 color="bar.main"
                 fontWeight="bold"
-                fontSize={30}
+                fontSize={40}
               >
                 Welcome
               </Typography>
@@ -53,22 +81,29 @@ export default function LogIn() {
                 <Typography
                   variant="text"
                   component="p"
-                  sx={{ fontWeight: "bold" }}
+                  sx={{
+                    fontWeight: "medium",
+                    fontSize: 20,
+                    fontFamily: "poppins",
+                    color: "#000",
+                  }}
                 >
                   Email
                 </Typography>
                 <InputBase
                   sx={{
                     width: "100%",
-                    fontSize: "1rem",
+                    fontSize: "1.1rem",
+                    fontFamily: "poppins",
+                    color: "#000",
                     "&:hover": { backgroundColor: "#f1f1f1" },
                     "& .MuiSvgIcon-root": {
                       marginRight: "8px",
                     },
-                    border: "1px solid #00000070",
+                    border: "1px solid #bfbdbd",
                     // borderRadius: 1,
-                    px: 2,
-                    py: "0.1rem",
+                    // px: 2,
+                    py: "0.15rem",
                     marginTop: "2px",
                   }}
                   type="email"
@@ -79,31 +114,50 @@ export default function LogIn() {
                 <Typography
                   variant="text"
                   component="p"
-                  sx={{ fontWeight: "bold" }}
+                  sx={{
+                    fontWeight: "medium",
+                    fontSize: 20,
+                    fontFamily: "poppins",
+                    color: "#000",
+                  }}
                 >
                   Password
                 </Typography>
                 <InputBase
                   sx={{
                     width: "100%",
-                    fontSize: "1rem",
+                    fontSize: "1.1rem",
+                    fontFamily: "poppins",
+                    color: "#000",
                     "&:hover": { backgroundColor: "#f1f1f1" },
-                    border: "1px solid #00000070",
+                    "& .MuiSvgIcon-root": {
+                      marginRight: "8px",
+                    },
+                    border: "1px solid #bfbdbd",
                     // borderRadius: 1,
-                    px: 2,
-                    py: "0.1rem",
+                    // px: 2,
+                    py: "0.15rem",
                     marginTop: "2px",
                   }}
-                  type="password"
+                  endAdornment={
+                    <IconButton onClick={() => togglePassword()}>
+                      <VisibilityOutlinedIcon
+                        sx={{ mr: 1.5 }}
+                        fontSize="medium"
+                      />
+                    </IconButton>
+                  }
+                  type={passwordShown ? "text" : "password"}
                   required
                 />
                 <Typography
                   variant="text"
                   component="p"
                   sx={{
-                    fontWeight: "bold",
-                    marginTop: "0.3rem",
-                    fontSize: 14,
+                    fontWeight: "medium",
+                    marginTop: "0.1rem",
+                    fontSize: 18,
+                    fontFamily: "poppins",
                     color: "bar.main",
                     width: "100%",
                     textAlign: "end",
@@ -128,7 +182,7 @@ export default function LogIn() {
                         defaultChecked
                         sx={{
                           color: "bar.main",
-                          "&$checked": { color: "#FF5722" },
+                          "&$checked": { color: "#FF702a" },
                         }}
                       />
                     }
@@ -138,6 +192,9 @@ export default function LogIn() {
                 <Button
                   variant="contained"
                   sx={{
+                    fontWeight: "medium",
+                    py: 1.5,
+                    my: 2,
                     width: "100%",
                     backgroundColor: "bar.main",
                     py: 1,
@@ -147,7 +204,7 @@ export default function LogIn() {
                     textTransform: "capitalize",
                   }}
                 >
-                  Log In
+                  <Typography>LOG IN</Typography>
                 </Button>
               </Stack>
               <Stack
@@ -157,25 +214,22 @@ export default function LogIn() {
               >
                 <Divider
                   sx={{
-                    border: "1px solid #48484870",
+                    border: "0.5px solid #bfbdbd",
                     width: "45%",
-                    marginTop: 1,
                   }}
                 />
                 <Typography
                   variant="text"
                   component="p"
-                  fontSize={13}
+                  fontSize={18}
                   width="100%"
-                  marginTop={1}
                 >
                   Or
                 </Typography>
                 <Divider
                   sx={{
-                    border: "1px solid #48484870",
+                    border: "0.5px solid #bfbdbd",
                     width: "45%",
-                    marginTop: 1,
                   }}
                 />
               </Stack>
@@ -186,29 +240,38 @@ export default function LogIn() {
               >
                 <Button
                   variant="outlined"
-                  startIcon={<GoogleIcon sx={{ color: "black" }} />}
+                  alignItems="center"
+                  startIcon={<GoogleIcon sx={{ color: "orange", ml: -5 }} />}
                   sx={{
                     width: "100%",
-                    py: 2,
+                    my: 3,
                     color: "black",
                     border: 1,
-                    borderColor: "black",
+                    borderColor: "#bfbdbd",
                     "& .MuiButton-startIcon": { marginRight: 7 },
                     "& .MuiButton-endIcon": { marginLeft: 7 },
                     "&:hover": {
-                      border: "1px solid black",
+                      border: "1px solid grey",
                     },
                   }}
-                  endIcon={<ArrowRightAltIcon />}
+                  // endIcon={<ArrowRightAltIcon />}
                 >
-                  Sign Up With Google
+                  <Typography sx={{ py: 1, fontWeight: "medium", ml: -3 }}>
+                    Sign up with google
+                  </Typography>
                 </Button>
               </Stack>
               <Stack direction="row" alignItems="center">
                 <Typography
                   variant="text"
                   component="p"
-                  sx={{ fontWeight: "bold", textTransform: "capitalize" }}
+                  sx={{
+                    textTransform: "capitalize",
+                    fontSize: "1.1rem",
+                    fontWeight: "medium",
+                    fontFamily: "poppins",
+                    mt: -4,
+                  }}
                 >
                   New here?
                 </Typography>
@@ -217,7 +280,10 @@ export default function LogIn() {
                     variant="text"
                     component="p"
                     sx={{
-                      fontWeight: "bold",
+                      mt: -4,
+                      fontSize: "1.1rem",
+                      fontWeight: "medium",
+                      fontFamily: "poppins",
                       color: "bar.main",
                       marginLeft: "0.5rem",
                       cursor: "pointer",

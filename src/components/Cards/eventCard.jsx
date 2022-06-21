@@ -12,89 +12,120 @@ import {
   CardContent,
   CardMedia,
   Button,
-  Link,
 } from "@mui/material";
-import { Stack } from "@mui/material";
+import { Stack, Box } from "@mui/material";
+import Link from "next/link";
 
-const Event = () => {
+const Event = ({ event }) => {
   const classes = useStyles();
   return (
-    <Card className={classes.card}>
-      <Link
-        href="/event_description"
-        style={{ color: "#6b6a6a", textDecoration: "none" }}
-      >
-        <CardMedia
-          className={classes.cardMedia}
-          image="https://source.unsplash.com/random"
-          title="Image Title"
-        />
-        <CardContent className={classes.cardContent}>
-          <Typography
-            variant="h4"
-            style={{ fontFamily: "poppins", color: "#333333" }}
-            gutterBottom
-          >
-            Musical Concert
-          </Typography>
-          <Stack
-            direction="row"
-            alignItems="center"
-            spacing={2}
-            sx={{ mb: 1.5 }}
-          >
-            <FmdGoodOutlinedIcon fontSize="large" />
+    <Link href="/">
+      <Box>
+        <Card className={classes.card} sx={{ cursor: "pointer" }}>
+          <CardMedia
+            className={classes.cardMedia}
+            image={event?.picture_url}
+            title={event?.name}
+            sx={{ cursor: "pointer" }}
+          />
+          <CardContent className={classes.cardContent}>
             <Typography
-              variant="h5"
-              style={{ color: "#333333", fontFamily: "poppins" }}
+              variant="h4"
+              sx={{ cursor: "pointer" }}
+              style={{ fontFamily: "poppins", color: "#333333" }}
+              gutterBottom
             >
-              Ghion, Addis Ababa
+              {event?.name}
             </Typography>
-          </Stack>
-          <Stack
-            direction="row"
-            alignItems="center"
-            spacing={2}
-            sx={{ mb: 1.5 }}
-          >
-            <AttachMoneyOutlinedIcon fontSize="large" />
-            <Typography
-              variant="h5"
-              style={{ color: "#333333", fontFamily: "poppins" }}
+            <Stack
+              direction="row"
+              alignItems="center"
+              spacing={2}
+              sx={{ mb: 1.5 }}
             >
-              1500 ETB
-            </Typography>
-          </Stack>
-          <Stack
-            direction="row"
-            alignItems="center"
-            spacing={2}
-            sx={{ mb: 1.5 }}
-          >
-            <GradeOutlinedIcon fontSize="large" />
-            <Typography
-              variant="h5"
-              style={{ color: "#333333", fontFamily: "poppins" }}
+              <FmdGoodOutlinedIcon fontSize="large" />
+              <Typography
+                variant="h5"
+                style={{ color: "#333333", fontFamily: "poppins" }}
+              >
+                {event?.address?.city}
+              </Typography>
+            </Stack>
+            {!event?.ticket_availability?.tickets[0] ? (
+              <Typography
+                sx={{ m: 4.5 }}
+                variant="h5"
+                style={{ fontFamily: "poppins", color: "#333333" }}
+                gutterBottom
+              >
+                NO TICKETS AVAILABLE
+              </Typography>
+            ) : (
+              <>
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  spacing={2}
+                  sx={{ mb: 1.5 }}
+                >
+                  <AttachMoneyOutlinedIcon fontSize="large" />
+                  <Typography
+                    variant="h5"
+                    style={{ color: "#333333", fontFamily: "poppins" }}
+                  >
+                    {event?.ticket_availability?.tickets[0] ? (
+                      event?.ticket_availability?.tickets[0]?.price
+                    ) : (
+                      <Typography
+                        variant="h5"
+                        style={{ color: "#333333", fontFamily: "poppins" }}
+                      >
+                        TICKETS FINISHED
+                      </Typography>
+                    )}
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  spacing={2}
+                  sx={{ mb: 1.5 }}
+                >
+                  <GradeOutlinedIcon fontSize="large" />
+                  <Typography
+                    variant="h5"
+                    style={{ color: "#333333", fontFamily: "poppins" }}
+                  >
+                    {event?.ticket_availability?.tickets[1] ? (
+                      event?.ticket_availability?.tickets[1]?.price
+                    ) : (
+                      <Typography
+                        variant="h5"
+                        style={{ color: "#333333", fontFamily: "poppins" }}
+                      >
+                        TICKETS FINISHED
+                      </Typography>
+                    )}
+                  </Typography>
+                </Stack>
+              </>
+            )}
+            <Stack
+              direction="row"
+              alignItems="center"
+              spacing={2}
+              sx={{ mb: 1.5 }}
             >
-              2500 ETB
-            </Typography>
-          </Stack>
-          <Stack
-            direction="row"
-            alignItems="center"
-            spacing={2}
-            sx={{ mb: 1.5 }}
-          >
-            <AccessTimeIcon fontSize="large" />
-            <Typography
-              variant="h5"
-              style={{ color: "#333333", fontFamily: "poppins" }}
-            >
-              Sun, 9:00 pm
-            </Typography>
-          </Stack>
-        </CardContent>
-        {/* <CardActions>
+              <AccessTimeIcon fontSize="large" />
+              <Typography
+                variant="h5"
+                style={{ color: "#333333", fontFamily: "poppins" }}
+              >
+                {event?.start?.date} , {event?.start?.time}
+              </Typography>
+            </Stack>
+          </CardContent>
+          {/* <CardActions>
         <Button size="small" color="primary">
           VIEW
         </Button>
@@ -102,8 +133,9 @@ const Event = () => {
           EDIT
         </Button>
       </CardActions> */}
-      </Link>
-    </Card>
+        </Card>
+      </Box>
+    </Link>
   );
 };
 export default Event;

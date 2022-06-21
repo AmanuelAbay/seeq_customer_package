@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import MainLayout from "../../src/components/layouts/mainLayout";
 import MyMap from "../../src/components/views/map";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
@@ -7,8 +8,16 @@ import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined
 import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";
+import CancelIcon from "@mui/icons-material/Cancel";
+import TicketConfirmation from "../../src/components/Events/Booking/TicketConfirmation";
+import TicketPreview from "../../src/components/Events/Booking/TicketPreview";
 import {
   Typography,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Badge,
   CssBaseline,
   Grid,
   Container,
@@ -18,15 +27,196 @@ import {
   Paper,
   IconButton,
 } from "@mui/material";
-import useStyles from "../../styles/styles";
 import Event from "../../src/components/Cards/eventCard";
 import { Divider } from "@mui/material";
 import Link from "@mui/material/Link";
+import { useEffect, useState } from "react";
+import { useCallback } from "react";
 
 const cards = [1, 2, 3, 4];
 
 const Description = () => {
-  const classes = useStyles();
+  const apiEndpoint4 = "https://warm-island-26970.herokuapp.com/events";
+  const apiEndpoint =
+    "https://warm-island-26970.herokuapp.com/events/6292504c60e182effbfb5022";
+  const apiEndpoint2 =
+    "https://warm-island-26970.herokuapp.com/event_organizers";
+  const apiEndpoint3 =
+    "https://warm-island-26970.herokuapp.com/register_ticket";
+  const [event, setEvent] = useState([]);
+  const [events, setEvents] = useState([""]);
+  const [organizer, setOrganizer] = useState([]);
+  const [standard, setStandard] = useState(0);
+  const [vip, setVip] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [ticketConfirmation, setTicketConfirmation] = useState(true);
+  const [ticketPreview, setTicketPreview] = useState(false);
+  const stPrice = 100;
+  const vpPrice = 500;
+  const [num2, setNum2] = useState(4);
+  const sliced2 = events?.slice(0, num2);
+  var gapi = window.gapi;
+  var CLIENT_ID =
+    "100401614857-c6nm9ie40k2j432u1emka58laf428qeq.apps.googleusercontent.com";
+  var API_KEY = "AIzaSyA12LXxcqfPNfqzd0AapDDOIR6zN0P04ro";
+  var DISCOVERY_DOCS = [
+    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
+  ];
+  var SCOPES = "https://www.googleapis.com/auth/calendar.events";
+
+  // const handleClickCalendar = () => {
+  //   gapi?.load("client:auth2", () => {
+  //     console.log("loaded client");
+
+  //     gapi.client.init({
+  //       apiKey: API_KEY,
+  //       clientId: CLIENT_ID,
+  //       discoveryDocs: DISCOVERY_DOCS,
+  //       scope: SCOPES,
+  //     });
+
+  //     gapi.client.load("calendar", "v3", () => console.log("bam!"));
+
+  //     gapi.auth2
+  //       .getAuthInstance()
+  //       .signIn()
+  //       .then(() => {
+  //         var event = {
+  //           location: "800 Howard St., San Francisco, CA 94103",
+  //           description: "Really great refreshments",
+  //           start: {
+  //             dateTime: "2020-06-28T09:00:00-07:00",
+  //           },
+  //           end: {
+  //             dateTime: "2020-06-28T17:00:00-07:00",
+  //             timeZone: "America/Los_Angeles",
+  //           },
+  //         };
+
+  //         var request = gapi.client.calendar.events.insert({
+  //           calendarId: "primary",
+  //           resource: event,
+  //         });
+
+  //         request.execute((event) => {
+  //           console.log(event);
+  //           window.open(event.htmlLink);
+  //         });
+  //       });
+  //   });
+  // };
+
+  const getEvents = useCallback(async () => {
+    const res = await axios.get(apiEndpoint4);
+    setEvents(res.data);
+    console.log(events);
+    console.log(res.data);
+  }, [events]);
+
+  useEffect(() => {
+    getEvents();
+  }, [getEvents]);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleTicketPreview = () => {
+    setTicketConfirmation(false);
+    setTicketPreview(true);
+  };
+
+  // const handleBook = () => {
+  // list of selected numbers will be displayed
+
+  // redirect to ticket preview page
+  //   setOpen(false);
+  // };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const addStandard = () => {
+    setStandard(standard + 1);
+  };
+  const addVip = () => {
+    setVip(vip + 1);
+  };
+
+  const subtractVip = () => {
+    vip > 0 && setVip(vip - 1);
+  };
+
+  const subtractStandard = () => {
+    standard > 0 && setStandard(standard - 1);
+  };
+
+  const loadMore2 = () => {
+    setNum2(num2 + num2);
+  };
+
+  const getEvent = useCallback(async () => {
+    const res = await axios.get(apiEndpoint);
+    setEvent(res.data);
+    getOrganizer();
+  }, [event]);
+
+  const getOrganizer = useCallback(async () => {
+    const res = await axios.get(apiEndpoint2);
+    setOrganizer(res.data);
+    console.log(res.data);
+    console.log("heyy");
+  }, [organizer]);
+
+  const postTicketStandard = useCallback(async () => {
+    try {
+      const res = await axios.post(apiEndpoint3, {
+        event_name: await event[0]?.name,
+        customer_name: "alemayehu",
+        organizer_name: await organizer[0]?.displayName,
+        organizers_id: "9GN7L5szXIPwEfKmeD1QSO53Usw1",
+        ticket_bought: standard,
+        location: await event[0]?.address?.city,
+        ticket_name: "Standard",
+        picture_url: await event[0]?.picture_url,
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.log(error.response);
+    }
+  });
+
+  const postTicketVip = useCallback(async () => {
+    try {
+      const res = await axios.post(apiEndpoint3, {
+        event_name: await event[0]?.name,
+        customer_name: "gizaw",
+        organizer_name: await organizer[0]?.displayName,
+        organizers_id: "9GN7L5szXIPwEfKmeD1QSO53Usw1",
+        ticket_bought: vip,
+        location: await event[0]?.address.city,
+        ticket_name: "Vip",
+        picture_url: await event[0]?.picture_url,
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.log(error.response);
+    }
+  });
+
+  const manageTicket = () => {
+    standard && postTicketStandard();
+    vip && postTicketVip();
+    handleClose();
+    window.location.reload(false);
+  };
+
+  useEffect(() => {
+    getEvent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <MainLayout>
       <Box sx={{ flexGrow: 1, backgroundColor: "#faffff" }}>
@@ -56,30 +246,34 @@ const Description = () => {
                 }}
               >
                 <Typography sx={{ fontSize: 23, fontWeight: "bold" }}>
-                  30
+                  {event[0]?.start?.date[0]}
+                  {event[0]?.start?.date[1]}
+                  {event[0]?.start?.date[2]}
                 </Typography>
                 <Typography sx={{ fontSize: 20, fontFamily: "poppins" }}>
-                  MAY
+                  {event[0]?.start?.date[4]}
+                  {event[0]?.start?.date[5]}
+                  {event[0]?.start?.date[6]}
                 </Typography>
               </Stack>
             </Grid>
             <Grid item>
               <Stack alignItems="start">
                 <Typography sx={{ fontFamily: "poppins", fontSize: 45 }}>
-                  The title of the event will be written here
+                  {event[0]?.name}
                 </Typography>
                 <Stack direction="row" alignItems="center" spacing={2}>
                   <FmdGoodOutlinedIcon />
                   <Typography sx={{ fontSize: 24, fontFamily: "poppins" }}>
-                    Venue events{" "}
+                    {event[0]?.address?.city}{" "}
                   </Typography>
                   <FiberManualRecordIcon fontSize="small" />
                   <Typography sx={{ fontSize: 24, fontFamily: "poppins" }}>
-                    Starts on monday 12:30
+                    Starts on {event[0]?.start?.date} at {event[0]?.start?.time}
                   </Typography>
                   <FiberManualRecordIcon fontSize="small" />
                   <Typography sx={{ fontSize: 24, fontFamily: "poppins" }}>
-                    1H 15M
+                    Ends at {event[0]?.end?.time}
                   </Typography>
                 </Stack>
               </Stack>
@@ -87,8 +281,8 @@ const Description = () => {
           </Grid>
           <Box>
             <img
-              src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469"
-              alt="rophnan concert"
+              src={event[0]?.picture_url}
+              alt={event[0]?.name}
               style={{
                 width: "100%",
                 height: "70vh",
@@ -135,7 +329,7 @@ const Description = () => {
                         fontFamily: "poppins",
                       }}
                     >
-                      Jorka Entertainment
+                      {organizer[0]?.displayName}
                     </Typography>
                     <Stack direction="row" alignItems="center" spacing={1}>
                       <Link style={{ textDecoration: "none" }}>
@@ -180,20 +374,25 @@ const Description = () => {
               <Typography
                 sx={{ fontSize: 23, fontFamily: "poppins", lineHeight: 1.7 }}
               >
-                Start your Sunday morning amongst nature at a nice slow pace,
+                {event[0]?.description}
+                {/* Start your Sunday morning amongst nature at a nice slow pace,
                 restoring and rejuvenating the body and mind. Join Nicole
                 Elliott on the deck in this Yin-Infused Yoga class,starting with
                 a slow-flowing movement to get the body warm and the mind
                 focused. Infusing some Yin-Style poses, passive stretches held
                 for minutes at a time, enjoying the feeling of steadiness; and
                 integrating some meditation and breathing practices to calm and
-                rejuvenate the body,finishing with a nice long relaxation.
+                rejuvenate the body,finishing with a nice long relaxation. */}
               </Typography>
               <Typography sx={{ fontFamily: "poppins", fontSize: 27, my: 2 }}>
                 Location
               </Typography>
               <Stack>
-                <MyMap sx={{ pl: 10 }} />
+                <MyMap
+                  // lati={event[0]?.address?.latitude}
+                  // long={event[0]?.address?.longitude}
+                  sx={{ pl: 10 }}
+                />
               </Stack>
             </Grid>
             <Grid item md={4} xs={12}>
@@ -331,16 +530,18 @@ const Description = () => {
                   <Typography
                     sx={{ fontSize: 20, fontFamily: "poppins", mb: 1.5 }}
                   >
-                    Sun, May 30, 2021 2:00 AM
+                    {event[0]?.start?.date} {event[0]?.start?.time}
                   </Typography>
-                  <Stack
+                  {/* <Stack
                     direction="row"
                     alignItems="center"
                     spacing={2}
                     sx={{ mb: 2 }}
                   >
                     <CalendarTodayOutlinedIcon style={{ color: "#3DB9B8" }} />
-                    <Typography
+                    <Button
+                      variant="text"
+                      onClick={() => handleClickCalendar()}
                       sx={{
                         fontSize: 22,
                         fontFamily: "poppins",
@@ -348,22 +549,12 @@ const Description = () => {
                       }}
                     >
                       Add to calendar
-                    </Typography>
-                  </Stack>
-                  <Typography
-                    sx={{ fontSize: 20, fontFamily: "poppins", mb: 1.5 }}
-                  >
-                    Tumbling waters holiday park
-                  </Typography>
-                  <Typography
-                    sx={{ fontSize: 20, fontFamily: "poppins", mb: 1.5 }}
-                  >
-                    Peninsula rd, Berry Springs, Northern
-                  </Typography>
+                    </Button>
+                  </Stack> */}
                   <Typography
                     sx={{ fontSize: 20, fontFamily: "poppins", mb: 3 }}
                   >
-                    Territory 838, Australia
+                    {event[0]?.address?.city}
                   </Typography>
                   <Typography
                     sx={{ fontSize: 20, fontFamily: "poppins", mb: 1.5 }}
@@ -374,7 +565,7 @@ const Description = () => {
                   <Typography
                     sx={{ fontSize: 20, fontFamily: "poppins", mb: 2 }}
                   >
-                    Yin infused Yoga
+                    {event[0]?.name}
                   </Typography>
                   <Stack
                     direction="row"
@@ -387,15 +578,59 @@ const Description = () => {
                         ETB
                       </Typography>
                       <Typography sx={{ fontSize: 24, fontFamily: "poppins" }}>
-                        15.00
+                        {event?.ticket_availability?.tickets[0] ? (
+                          event?.ticket_availability?.tickets[0]?.price
+                        ) : (
+                          <Typography
+                            variant="h5"
+                            style={{ color: "#333333", fontFamily: "poppins" }}
+                          >
+                            TICKETS FINISHED
+                          </Typography>
+                        )}
+                        standard
                       </Typography>
                     </Stack>
                     <Stack direction="row" alignItems="center" spacing={2}>
-                      <IconButton>
+                      <IconButton onClick={() => subtractStandard()}>
                         <RemoveCircleOutlineOutlinedIcon fontSize="large" />
                       </IconButton>
-                      <Typography sx={{ fontSize: 20 }}>0</Typography>
-                      <IconButton>
+                      <Typography sx={{ fontSize: 20 }}>{standard}</Typography>
+                      <IconButton onClick={() => addStandard()}>
+                        <AddCircleOutlineOutlinedIcon fontSize="large" />
+                      </IconButton>
+                    </Stack>
+                  </Stack>
+                  <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    sx={{ mb: 3 }}
+                  >
+                    <Stack direction="row" spacing={1}>
+                      <Typography sx={{ fontSize: 24, fontFamily: "poppins" }}>
+                        ETB
+                      </Typography>
+                      <Typography sx={{ fontSize: 24, fontFamily: "poppins" }}>
+                        {event?.ticket_availability?.tickets[0] ? (
+                          event?.ticket_availability?.tickets[0]?.price
+                        ) : (
+                          <Typography
+                            variant="h5"
+                            style={{ color: "#333333", fontFamily: "poppins" }}
+                          >
+                            TICKETS FINISHED
+                          </Typography>
+                        )}
+                        vip
+                      </Typography>
+                    </Stack>
+                    <Stack direction="row" alignItems="center" spacing={2}>
+                      <IconButton onClick={() => subtractVip()}>
+                        <RemoveCircleOutlineOutlinedIcon fontSize="large" />
+                      </IconButton>
+                      <Typography sx={{ fontSize: 20 }}>{vip}</Typography>
+                      <IconButton onClick={() => addVip()}>
                         <AddCircleOutlineOutlinedIcon fontSize="large" />
                       </IconButton>
                     </Stack>
@@ -406,11 +641,13 @@ const Description = () => {
                       ETB
                     </Typography>
                     <Typography sx={{ fontSize: 24, fontWeight: "bold" }}>
-                      15.00
+                      {vip * vpPrice + standard * stPrice}
                     </Typography>
                   </Stack>
                   <Button
                     variant="contained"
+                    // onClick={() => manageTicket()}
+                    onClick={handleClickOpen}
                     sx={{
                       backgroundColor: "#ff602d",
                       height: 50,
@@ -454,10 +691,18 @@ const Description = () => {
                 sx={{ mr: 3 }}
               >
                 <Stack direction="row" alignItems="center" spacing={1}>
-                  <Typography sx={{ fontSize: 24, fontFamily: "poppins" }}>
-                    Browse all
-                  </Typography>
-                  <ArrowDownwardOutlinedIcon />
+                  <Button onClick={() => loadMore2()}>
+                    <Typography
+                      sx={{
+                        fontSize: 24,
+                        fontFamily: "poppins",
+                        color: "#000",
+                      }}
+                    >
+                      Browse all
+                    </Typography>
+                    <ArrowDownwardOutlinedIcon sx={{ color: "#000" }} />
+                  </Button>
                 </Stack>
               </Button>
             </Grid>
@@ -471,9 +716,9 @@ const Description = () => {
             }}
           >
             <Grid container spacing={4}>
-              {cards.map((card) => (
+              {sliced2.map((event, card) => (
                 <Grid item key={card} xs={12} sm={6} md={3}>
-                  <Event />
+                  <Event event={event} />
                 </Grid>
               ))}
             </Grid>
@@ -481,6 +726,33 @@ const Description = () => {
         </Container>
         <Box height={150}></Box>
       </Box>
+      <Dialog
+        open={open}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        maxWidth="md"
+        fullWidth={true}
+        sx={{ textAlign: "center" }}
+      >
+        <Badge
+          badgeContent={<CancelIcon backgroundColor="#555555" />}
+          sx={{ marginRight: 3, marginTop: 3, cursor: "pointer" }}
+          onClick={handleClose}
+        />
+        <Stack texAlign="center" sx={{ width: "100%" }}>
+          <DialogContent sx={{ width: "100%" }}>
+            <DialogContentText
+              sx={{ width: "100%" }}
+              id="alert-dialog-description"
+            >
+              {ticketConfirmation && (
+                <TicketConfirmation Accept={handleTicketPreview} />
+              )}
+              {ticketPreview && <TicketPreview Back={manageTicket} />}
+            </DialogContentText>
+          </DialogContent>
+        </Stack>
+      </Dialog>
     </MainLayout>
   );
 };

@@ -2,6 +2,7 @@
   "name": "seeq_customer_package",
   "version": "0.1.0",
   "private": true,
+  "proxy": "127.0.0.1:7000/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -17,6 +18,7 @@
     "@mui/icons-material": "^5.6.2",
     "@mui/material": "^5.8.0",
     "@mui/styles": "^5.8.0",
+    "axios": "^0.27.2",
     "clsx": "^1.1.1",
     "google-maps-react": "^2.0.6",
     "next": "12.1.6",

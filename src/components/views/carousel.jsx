@@ -25,14 +25,17 @@ const MyCarousel = () => {
           {items.map((item, index) => (
             // <Item key={item}>{item}</Item>
 
+            // <Button
+            //   key={index}
+            //   variant="outlined"
+            //   sx={{ color: "#000", fontSize: 20 }}
+            // >
+
             <Button
-              key={index}
+              key={item}
               variant="outlined"
               sx={{ color: "#000", fontSize: 20 }}
             >
-
-            <Button key={item} variant="outlined" sx={{ color: "#000", fontSize: 20 }}>
-
               {item}
             </Button>
           ))}

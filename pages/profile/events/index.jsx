@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useCallback } from "react";
+import axios from "axios";
 import {
   Container,
   InputBase,
@@ -12,16 +14,36 @@ import {
   Box,
   Stack,
 } from "@mui/material";
+import Link from "next/link";
 import SearchIcon from "@mui/icons-material/Search";
 import Event from "../../../src/components/Lists/Event";
 import Layout from "../../../src/components/layouts/adminLayout";
 
 export default function Events() {
+  const apiEndpoint = "https://warm-island-26970.herokuapp.com/tickets";
+
   const [value, setValues] = useState("upcoming");
+  const [tickets, setTickets] = useState([]);
 
   const handleInputChange = (e) => {
     setValues(e.target.value);
   };
+
+  // const refresh = () => {
+  //   window.location.reload(false);
+  // };
+
+  const getTickets = async () => {
+    const res = await axios.get(apiEndpoint);
+    setTickets(res.data);
+    console.log(res.data);
+    // refresh();
+  };
+
+  useEffect(() => {
+    getTickets();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Layout>
@@ -100,7 +122,11 @@ export default function Events() {
           </Box>
           <Stack
             direction="row"
-            sx={{ width: "45%", justifyContent: "space-between", marginRight:3 }}
+            sx={{
+              width: "45%",
+              justifyContent: "space-between",
+              marginRight: 3,
+            }}
           >
             <Typography variant="p" component="text">
               Tickets
@@ -114,12 +140,19 @@ export default function Events() {
             <Typography variant="p" component="text"></Typography>
           </Stack>
         </Box>
-        <Event source="https://media.istockphoto.com/photos/cheering-crowd-of-unrecognized-people-at-a-rock-music-concert-concert-picture-id1189205501?k=20&m=1189205501&s=612x612&w=0&h=fexl_Cmu6AdLatIasGg_XYTkLSeWHCtvhMw1nK5_uDc=" />
+        {tickets.map((ticket, index) => (
+          <Link href="/movie_description" key={index} textDecoration="none">
+            <Event ticket={ticket} sx={{ py: 1 }} />
+          </Link>
+
+          // <MenuItem key={menu} onClick={handleClose}>{menu}</MenuItem>
+        ))}
+        {/* <Event source="https://media.istockphoto.com/photos/cheering-crowd-of-unrecognized-people-at-a-rock-music-concert-concert-picture-id1189205501?k=20&m=1189205501&s=612x612&w=0&h=fexl_Cmu6AdLatIasGg_XYTkLSeWHCtvhMw1nK5_uDc=" />
         <Event source="https://media.istockphoto.com/photos/are-you-ready-to-party-picture-id1181169462?k=20&m=1181169462&s=612x612&w=0&h=Bl6aor50n-318v4vfwHRcg_w3OgMHmXWM6g0kUrSftk=" />
         <Event source="https://cc-prod.scene7.com/is/image/CCProdAuthor/concert-photography_P1_900x420?$pjpeg$&jpegSize=200&wid=900" />
         <Event source="https://cc-prod.scene7.com/is/image/CCProdAuthor/concert-photography_P1_900x420?$pjpeg$&jpegSize=200&wid=900" />
         <Event source="https://cc-prod.scene7.com/is/image/CCProdAuthor/concert-photography_P1_900x420?$pjpeg$&jpegSize=200&wid=900" />
-        <Event source="https://cc-prod.scene7.com/is/image/CCProdAuthor/concert-photography_P1_900x420?$pjpeg$&jpegSize=200&wid=900" />
+        <Event source="https://cc-prod.scene7.com/is/image/CCProdAuthor/concert-photography_P1_900x420?$pjpeg$&jpegSize=200&wid=900" /> */}
       </Container>
     </Layout>
   );

@@ -2,6 +2,9 @@
 // import { Box } from "@mui/material";
 import Image from "next/image";
 import teddy from "../assets/editedddd.jpg";
+import event3 from "../assets/event3.jpg";
+import event4 from "../assets/event4.jpg";
+import event5 from "../assets/event5.jpg";
 import { makeStyles } from "@mui/styles";
 
 // const Showcase = () => {
@@ -35,7 +38,9 @@ import SwiperCore, {
   Scrollbar,
   Pagination,
   Navigation,
+  Autoplay,
 } from "swiper/core";
+SwiperCore.use([Autoplay]);
 // import Swiper from 'swiper/bundle';
 
 // import styles bundle
@@ -74,6 +79,10 @@ const Showcase = () => {
         className={swiperContainer}
         spaceBetween={5}
         slidesPerView={1}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
         onSlideChange={() => console.log("slide change")}
         onSwiper={(swiper) => console.log(swiper)}
         grabCursor
@@ -83,15 +92,44 @@ const Showcase = () => {
         loop
       >
         {cards.map((card) => (
-          <SwiperSlide key={card}>
-            <Image
-              className={media}
-              src={teddy}
-              alt="Picture of the author"
-              style={{ objectFit: "cover", height: 0, paddingTop: "100%" }}
-              layout="responsive"
-            />
-          </SwiperSlide>
+          <>
+            <SwiperSlide key={card}>
+              <Image
+                className={media}
+                src={teddy}
+                alt="Picture of the author"
+                style={{ objectFit: "cover", height: 0, paddingTop: "100%" }}
+                layout="responsive"
+              />
+            </SwiperSlide>
+            <SwiperSlide key={card}>
+              <Image
+                className={media}
+                src={event3}
+                alt="Picture of the author"
+                style={{ objectFit: "cover", height: 0, paddingTop: "100%" }}
+                layout="responsive"
+              />
+            </SwiperSlide>
+            <SwiperSlide key={card}>
+              <Image
+                className={media}
+                src={event4}
+                alt="Picture of the author"
+                style={{ objectFit: "cover", height: 0, paddingTop: "100%" }}
+                layout="responsive"
+              />
+            </SwiperSlide>
+            <SwiperSlide key={card}>
+              <Image
+                className={media}
+                src={event5}
+                alt="Picture of the author"
+                style={{ objectFit: "cover", height: 0, paddingTop: "100%" }}
+                layout="responsive"
+              />
+            </SwiperSlide>
+          </>
         ))}
         {/* <SwiperSlide>
           <Image
