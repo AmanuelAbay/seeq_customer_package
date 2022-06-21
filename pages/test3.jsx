@@ -1,13 +1,13 @@
 import { Button, Paper, Stack, Typography, Box, Grid } from "@mui/material";
 import React from "react";
-// import Image from "next/image";
+import Image from "next/image";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-// import brra from "../src/assets/brra.jpg";
+import brra from "../src/assets/brra.jpg";
 import QRCode from "react-qr-code";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Link from "next/link";
 
-export default function TicketPreview({ Back }) {
+export default function TicketPreview() {
   const values = "Seeq";
   return (
     <Paper
@@ -196,32 +196,30 @@ export default function TicketPreview({ Back }) {
             </Box>
           </Grid>
         </Grid>
-        <Link href="/event_description">
-          <Button onClick={Back}>
-            <Stack
-              direction="row"
-              spacing={1.5}
-              // alignItems="center"
-              marginTop={5}
+        <Link href="/">
+          <Stack
+            direction="row"
+            spacing={1.5}
+            // alignItems="center"
+            marginTop={5}
+          >
+            <ArrowBackIcon />
+            <Typography
+              variant="text"
+              component="p"
+              sx={{
+                fontWeight: "medium",
+                color: "#FF702a",
+                fontFamily: "poppins",
+                fontSize: 20,
+                textTransform: "capitalize",
+                cursor: "pointer",
+                "&:hover": { textDecoration: "underline" },
+              }}
             >
-              <ArrowBackIcon />
-              <Typography
-                variant="text"
-                component="p"
-                sx={{
-                  fontWeight: "medium",
-                  color: "#FF702a",
-                  fontFamily: "poppins",
-                  fontSize: 20,
-                  textTransform: "capitalize",
-                  cursor: "pointer",
-                  "&:hover": { textDecoration: "underline" },
-                }}
-              >
-                Back To Home
-              </Typography>
-            </Stack>
-          </Button>
+              Back To Home
+            </Typography>
+          </Stack>
         </Link>
       </Stack>
     </Paper>

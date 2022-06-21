@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import MainLayout from "../src/components/layouts/mainLayout";
 import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
@@ -13,7 +14,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
+import { useCallback } from "react";
 // asset imports
 import image from "../src/assets/seeqApp.png";
 import image2 from "../src/assets/aastuPartner.png";
@@ -54,6 +55,7 @@ const partners = [1, 2, 3, 4];
 const Home = () => {
   const classes = useStyles();
   const API_URL = "http://www.omdbapi.com?apikey=c15ef40d";
+  const apiEndpoint = "https://warm-island-26970.herokuapp.com/events";
   const menus = ["Action", "Tragedy", "Romance", "Comedy", "Erotic"];
   const menuItems = [
     "All",
@@ -64,11 +66,15 @@ const Home = () => {
     "Entertainment",
   ];
   const [movies, setMovies] = useState([]);
+  const [events, setEvents] = useState([""]);
+  const [event1, setEvent1] = useState("");
+  const [event2, setEvent2] = useState("");
   const [searchTerm, setSearchTerm] = useState("spiderman");
   const [num, setNum] = useState(4);
+  // const [numb, setNumb] = useState(1);
   const [num2, setNum2] = useState(4);
   const sliced = movies?.slice(0, num);
-  const sliced2 = cards?.slice(0, num2);
+  const sliced2 = events?.slice(0, num2);
   const title = "spider man";
 
   const theme = useTheme();
@@ -79,6 +85,18 @@ const Home = () => {
     const data = await response.json();
     setMovies(data.Search);
   };
+
+  const getEvents = useCallback(async () => {
+    const res = await axios.get(apiEndpoint);
+    setEvents(res.data);
+    console.log(events);
+    console.log(res.data);
+  }, [events]);
+
+  useEffect(() => {
+    getEvents();
+  }, [getEvents]);
+
   const loadMore = () => {
     setNum(num + num);
   };
@@ -89,6 +107,7 @@ const Home = () => {
   useEffect(() => {
     searchMovies(title);
   }, []);
+
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
@@ -205,15 +224,13 @@ const Home = () => {
                           onKeyDown={handleListKeyDown}
                         >
                           {menus.map((menu) => (
-
                             <MenuItem key={menu} onClick={handleClose}>
                               <Typography sx={{ fontFamily: "Poppins" }}>
                                 {menu}
                               </Typography>
                             </MenuItem>
 
-                            <MenuItem key={menu} onClick={handleClose}>{menu}</MenuItem>
-
+                            // <MenuItem key={menu} onClick={handleClose}>{menu}</MenuItem>
                           ))}
                         </MenuList>
                       </ClickAwayListener>
@@ -297,7 +314,7 @@ const Home = () => {
                 <Typography
                   variant="h3"
                   textAlign="center"
-                  sx={{ ml: "40%", mt: 3, fontFamily: "poppins1" }}
+                  sx={{ ml: "40%", mt: 3, fontFamily: "poppins" }}
                 >
                   No Movies Found :(
                 </Typography>
@@ -520,9 +537,9 @@ const Home = () => {
           style={{ paddingLeft: "3.5%", paddingRight: "3.5%" }}
         >
           <Grid container alignItems="center" spacing={3}>
-            {sliced2.map((card) => (
+            {sliced2.map((event, card) => (
               <Grid item key={card} xs={12} sm={6} md={3}>
-                <Event />
+                <Event event={event} />
               </Grid>
             ))}
           </Grid>

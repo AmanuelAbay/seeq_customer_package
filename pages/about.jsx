@@ -40,7 +40,7 @@ function About() {
               width: "100%",
               alignItems: "center",
               textTransform: "uppercase",
-              marginTop:3
+              marginTop: 3,
             }}
           >
             About Seeq

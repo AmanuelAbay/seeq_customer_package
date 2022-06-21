@@ -10,30 +10,22 @@ const Layout = ({ children }) => {
       <Grid container spacing={3} sx={{ marginTop: 8.5 }}>
         <Grid
           item
-          sm={2}
-          md={2}
-          lg={2}
-          xl={2}
+          sm={2.5}
+          md={2.5}
+          lg={2.5}
+          xl={2.5}
           sx={{
-            backgroundColor: "#80808050",
+            backgroundColor: "#d6d4d4",
             height: "full",
             alignItems: "center",
             textAlign: "center",
-            borderRight: "1px solid #00000050",
+            borderRight: "1px solid #bfbdbd",
             paddingLeft: "3px",
           }}
         >
           <SideNav />
         </Grid>
-        <Grid
-          item
-          sm={10}
-          md={10}
-          lg={10}
-          xl={10}
-          marginTop={2}
-          marginBottom={3}
-        >
+        <Grid item sm={9} md={9} lg={9} xl={9} marginTop={2} marginBottom={3}>
           <main>{children}</main>
         </Grid>
       </Grid>

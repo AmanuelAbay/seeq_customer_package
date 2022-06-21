@@ -5,7 +5,6 @@ import Link from "next/dist/client/link";
 // import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function Header() {
-
   return (
     <AppBar
       position="fixed"
@@ -17,7 +16,7 @@ export default function Header() {
             <Link href="/">
               <Typography
                 sx={{ cursor: "pointer", color: "white" }}
-                variant="h6"
+                variant="h4"
                 component="div"
               >
                 Seeq

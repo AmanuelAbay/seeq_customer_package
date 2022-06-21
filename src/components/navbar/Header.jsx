@@ -260,7 +260,7 @@ export default function MenuAppBar() {
                         fullWidth={true}
                         sx={{
                           ml: 1,
-                          py: 1.5,
+                          py: 1,
                           "& input::placeholder": {
                             fontSize: isMobile ? 15 : 20,
                             fontFamily: "poppins",
@@ -494,18 +494,20 @@ export default function MenuAppBar() {
                     </Grow>
                   )}
                 </Popper>
-                <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "#FF702a",
-                    fontWeight: "bold",
-                    fontSize: 18,
-                    "&:hover": { backgroundColor: "#ff5119" },
-                    mr: 3,
-                  }}
-                >
-                  Sign Up
-                </Button>
+                <Link href="/register" textDecoration="none">
+                  <Button
+                    variant="contained"
+                    sx={{
+                      backgroundColor: "#FF702a",
+                      fontWeight: "bold",
+                      fontSize: 18,
+                      "&:hover": { backgroundColor: "#ff5119" },
+                      mr: 3,
+                    }}
+                  >
+                    Sign Up
+                  </Button>
+                </Link>
               </Grid>
             )}
           </Grid>
