@@ -73,6 +73,7 @@ const Home = () => {
   const [num, setNum] = useState(4);
   // const [numb, setNumb] = useState(1);
   const [num2, setNum2] = useState(4);
+  const [movie, setMovie] = useState([]);
   const sliced = movies?.slice(0, num);
   const sliced2 = events?.slice(0, num2);
   const title = "spider man";
@@ -86,6 +87,12 @@ const Home = () => {
     setMovies(data.Search);
   };
 
+  const getMovies = async () => {
+    await axios.get(`http://localhost:3000/seeq/api/movie`).then((res) => {
+      setMovie(res.data.data);
+    });
+  };
+
   const getEvents = useCallback(async () => {
     const res = await axios.get(apiEndpoint);
     setEvents(res.data);
@@ -95,6 +102,7 @@ const Home = () => {
 
   useEffect(() => {
     getEvents();
+    getMovies();
   }, [getEvents]);
 
   const loadMore = () => {

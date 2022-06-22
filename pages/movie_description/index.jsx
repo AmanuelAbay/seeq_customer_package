@@ -24,6 +24,7 @@ import Movie from "../../src/components/Cards/movieCard";
 import { Divider } from "@mui/material";
 import { useState, useEffect } from "react";
 import MainLayout from "../../src/components/layouts/mainLayout";
+import axios from "axios";
 
 const cards = [1, 2, 3, 4];
 
@@ -31,13 +32,21 @@ const Description = () => {
   const API_URL = "http://www.omdbapi.com?apikey=c15ef40d";
   const title = "spider man";
   const [movies, setMovies] = useState([]);
+  const [moviesDescription, setMovieDescription] = useState({});
   const theme = useTheme();
+  const [movie, setMovie] = useState();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const setSearch = async (title) => {
     const response = await fetch(`${API_URL}&s=${title}`);
     const data = await response.json();
-    console.log(data);
+    const id = 705861;
+    await axios
+      .get(`http://localhost:3000/seeq/api/movie/` + id)
+      .then((res) => {
+        setMovie(res.data.movie);
+        setMovieDescription(res.data.movieInfo);
+      });
     setMovies(data.Search);
   };
   useEffect(() => {
