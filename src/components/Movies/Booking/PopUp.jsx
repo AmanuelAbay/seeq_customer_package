@@ -12,19 +12,22 @@ import {
   Button,
   Divider,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TermsAndPolicy from "./TermsAndPolicy";
 import SeatSelection from "./SeatSelection";
 import TotalSeat from "./TotalSeat";
 import TicketPreview from "./TicketPreview";
 import CancelIcon from "@mui/icons-material/Cancel";
+// import Carousel from "../../views/carousel"
+import axios from 'axios';
 
 export default function AddMovies({ popup }) {
   const [open, setOpen] = useState(popup);
   const [terms, setTerms] = useState(true);
-  const [numberOfSeat, setNumberOfSeat] = useState(false);
+  // const [numberOfSeat, setNumberOfSeat] = useState(false);
   const [seatSelection, setSeatSelection] = useState(false);
   const [ticketPreview, setTicketPreview] = useState(false);
+  const [availability, setAvailability] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,7 +39,8 @@ export default function AddMovies({ popup }) {
   };
 
   const handleTotalSeat = () => {
-    setNumberOfSeat(false);
+    // setNumberOfSeat(true);
+    setTerms(false);
     setSeatSelection(true);
   };
 
@@ -55,6 +59,20 @@ export default function AddMovies({ popup }) {
   const handleClose = () => {
     setOpen(false);
   };
+  const fetch = async () =>{
+    const id = 705861;
+    await axios
+      .get(`http://localhost:3000/seeq/api/movie/` + id)
+      .then((res) => {
+        console.log(res.data.movie);
+        // setMovieDescription(res.data.movieInfo);
+        console.log(res.data.movieInfo);
+      });
+  }
+
+  useEffect(()=>{
+    fetch();
+  },[])
 
   return (
     <>
@@ -321,11 +339,6 @@ export default function AddMovies({ popup }) {
                 Terms and conditions
               </Typography>
             )}
-            {numberOfSeat && (
-              <Typography variant="text" component="p">
-                How Many Seat?
-              </Typography>
-            )}
             {seatSelection && (
               <Typography variant="text" component="p">
                 Select Seats
@@ -345,10 +358,10 @@ export default function AddMovies({ popup }) {
               {terms && (
                 <TermsAndPolicy
                   Decline={handleClose}
-                  Accept={handleSeatSelection}
+                  Accept={handleTotalSeat}
                 />
               )}
-              {numberOfSeat && <SeatSelection Agree={handleTotalSeat} />}
+              {/* {numberOfSeat && <SeatSelection Agree={handleTotalSeat} />} */}
               {seatSelection && <TotalSeat Checkout={handleTicketPreview} />}
               {ticketPreview && <TicketPreview Book={handleBook} />}
             </DialogContentText>
